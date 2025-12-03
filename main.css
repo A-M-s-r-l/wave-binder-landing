@@ -1,0 +1,590 @@
+:root {
+    --bg-color: #FAFAFA;
+    --text-color: #7e7e94;
+    --text-color-2: #a7abd6;
+    --text-color-header-h2: #0d198c;
+    --text-color-info-hover: #333333;
+    --gradient-1: #e80080;
+    --gradient-2: #840a94;
+    --gradient-3: #2113a8;
+    --gradient-or-not: linear-gradient(to bottom, var(--gradient-1), var(--gradient-3));
+}
+
+.dark {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+    --text-color-header-h2: #ffffff;
+    --text-color-info-hover: #ffffff;
+    --gradient-or-not: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: auto;
+    overflow-x: hidden;
+}
+
+body {
+    overscroll-behavior: none;
+    background-color: var(--bg-color);
+}
+
+.lenis {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+footer {
+    height: 5rem;
+    text-align: center;
+    color: var(--text-color-2);
+}
+
+section {
+    margin-bottom: 15rem;
+}
+
+#info h2,
+#features h2,
+#partners h2{
+    text-align: center;
+    font-weight: normal;
+    font-size: 3.5rem;
+    margin-top: 10rem;
+}
+
+.sub-title {
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 3rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+    font-weight: normal;
+}
+
+/* Header ----------------------------------------------------------------------------------------------- */
+#header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    padding: 0 20px;
+}
+
+#logo {
+    width: 25%;
+    min-width: 300px;
+}
+
+#header h1 {
+    font-size: clamp(3rem, 5vw, 4rem);
+}
+
+#header h2 {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: var(--text-color-header-h2);
+}
+
+#header span,
+#info span{
+    background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Theme Selector */
+#theme-selector {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: red;
+    height: 100px;
+    width: 100px;
+}
+.themeToggle {
+    color: var(--gradient-1);
+    width: 2.5em;
+}
+
+.st-sunMoonThemeToggleBtn {
+    position: absolute;
+    cursor: pointer;
+    top: 25px;
+    right: 25px;
+}
+
+.st-sunMoonThemeToggleBtn .themeToggleInput {
+    opacity: 0;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.st-sunMoonThemeToggleBtn svg {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+    transform: rotate(40deg);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunMoon {
+    transform-origin: center center;
+    transition: inherit;
+    transform: scale(1);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunRay {
+    transform-origin: center center;
+    transform: scale(0);
+}
+
+.st-sunMoonThemeToggleBtn svg mask > circle {
+    transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+    transform: translate(0px, 0px);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunRay2 {
+    animation-delay: 0.05s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay3 {
+    animation-delay: 0.1s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay4 {
+    animation-delay: 0.17s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+    animation-delay: 0.25s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+    animation-delay: 0.29s !important;
+}
+
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
+    transform: rotate(90deg);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg mask > circle {
+    transform: translate(16px, -3px);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunMoon {
+    transform: scale(0.55);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunRay {
+    animation: showRay1832 0.4s ease 0s 1 forwards;
+}
+
+@keyframes showRay1832 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Info --------------------------------------------------------------------------------------------------------*/
+#info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#info-grid {
+    padding: 0 12%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    color: var(--text-color-2);
+}
+
+@media (max-width: 1200px) {
+    #info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 750px) {
+    #info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+#info-grid > div {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 350px;
+
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Pseudo-element = gradient border layer */
+#info-grid > div::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px; /* Border thickness */
+    background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2));
+    opacity: 0;            /* Hidden at start */
+    transition: opacity 0.3s ease-in-out;
+    z-index: 0;            /* Behind content */
+    /* Mask makes the inside transparent, leaving only the border visible */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* Show border on hover */
+#info-grid > div:hover::before {
+    opacity: 1;
+}
+
+/* Keeps content aligned above the pseudo element */
+#info-grid > div > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Text animation */
+#info-grid > div p {
+    transition: color 0.3s ease-in-out;
+}
+
+#info-grid > div:hover p {
+    color: var(--text-color-info-hover);
+}
+
+/* Pseudo-element overlay for gradient text */
+#info-grid > div h3::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+/* Show gradient overlay on hover */
+#info-grid > div:hover h3::after {
+    opacity: 1;
+}
+
+/* SVGs */
+.svg-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    left: -20px; /* Same as padding of parent */
+    margin-bottom: -20px; /* Same as padding of parent */
+}
+
+
+#info-grid svg {
+    position: absolute;
+    bottom: 0;
+}
+
+.data-connected {
+    width: 80%;
+    left: -2px;
+}
+
+.arrows {
+    width: 65%;
+}
+
+.code {
+    width: 80%;
+    left: 10%;
+}
+
+.svg-container svg:not(.svg-gradient) {
+    fill: var(--text-color-2);
+}
+
+/* Gradient icon starts invisible */
+.svg-gradient {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+/* Show gradient on hover (same as your text version) */
+#info-grid > div:hover .svg-gradient {
+    opacity: 1;
+}
+
+/* CTA */
+#cta {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+#cta button {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    overflow: hidden;
+    display: flex;
+    width: 250px;
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 10px;
+    transition: color 0.3s ease;
+    letter-spacing: 2px;
+}
+
+/* Always-visible gradient border */
+#cta button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px; /* Border thickness */
+    background: linear-gradient(to right, var(--gradient-1), var(--gradient-3));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0;
+}
+
+/* Background layer for hover */
+#cta button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to right, var(--gradient-1), var(--gradient-3));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+/* Show background on hover */
+#cta button:hover::after {
+    opacity: 1;
+}
+
+#cta button span {
+    font-weight: 600;
+}
+
+#cta button:hover span{
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+#cta svg{
+    transition: fill 0.3s ease-in-out;
+    fill: var(--text-color)
+}
+
+#cta button:hover svg{
+    fill: white;
+}
+
+
+#cta > button span {
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+
+    /* gradient text */
+    background: var(--gradient-or-not);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* white overlay text */
+#cta > button span::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    color: white;
+    opacity: 0; /* start invisible */
+    transition: opacity 5.3s ease-in-out; /* smooth fade */
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* fade in white on hover */
+#cta button:hover span::after {
+    opacity: 1;
+}
+
+/* Partners ---------------------------------------------------------------------------- */
+#partners {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#partners h2 {
+    font-weight: normal;
+    font-size: 1.7rem;
+    margin-bottom: 3rem;
+}
+
+
+#partners-container {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    position: relative;
+}
+
+#partners-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 50px 120px;
+
+    /* fading edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+}
+
+@media (max-width: 1400px) {
+    #partners-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1125px) {
+    #partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 850px) {
+    #partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    #partners-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+#partners-grid div {
+    display: flex;
+    justify-content: center;
+    gap: 15px
+}
+
+#partners-grid span {
+    color: #c1c4e3;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Features --------------------------------------------------------------------------------------------- */
+#features {
+    display: flex;
+    flex-direction: column;
+}
+
+#features span {
+    font-size: 0.9rem;
+    color: #ff0099;
+}
+
+#features-grid {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10%;
+    grid-template-columns: 30% 50%;
+    grid-template-rows: repeat(3, auto);
+    gap: 50px;
+}
+
+@media (max-width: 750px) {
+    #features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.feature-ex {
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 225px;
+}
+
