@@ -1,0 +1,203 @@
+#form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------------------------------------------------
+   GLOBAL FORM WRAPPER
+--------------------------------------------------- */
+#contactForm {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    background: #fafafa;
+    font-family: system-ui, sans-serif;
+}
+
+#contactForm div {
+    margin-bottom: 22px;
+}
+
+#contactForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ---------------------------------------------------
+   INPUTS + TEXTAREA
+--------------------------------------------------- */
+#contactForm input,
+#contactForm textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+#contactForm textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Focus */
+#contactForm input:focus,
+#contactForm textarea:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.25);
+}
+
+/* ---------------------------------------------------
+   VALIDATION
+--------------------------------------------------- */
+input.invalid,
+textarea.invalid {
+    border-color: #d9534f !important;
+    background: #fff5f5;
+}
+
+input.invalid:focus,
+textarea.invalid:focus {
+    box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.25);
+}
+
+/* ---------------------------------------------------
+   CHECKBOX
+--------------------------------------------------- */
+#privacy {
+    width: auto;
+    margin-right: 8px;
+}
+
+label[for="privacy"] {
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------
+   SUBMIT BUTTON + ANIMATIONS
+--------------------------------------------------- */
+#contactForm .actions {
+    margin-top: 25px;
+}
+
+#submitBtn {
+    background: #4285f4;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1.05rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 140px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    transition: background 0.25s, transform 0.25s, opacity 0.25s;
+}
+
+#submitBtn:hover {
+    background: #357ae8;
+}
+
+#submitBtn:disabled {
+    background: #9bbcf9;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ---------------------------------------------------
+   BUTTON LOADING SPINNER
+--------------------------------------------------- */
+.btn-loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid transparent;
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ---------------------------------------------------
+   SUCCESS CHECKMARK
+--------------------------------------------------- */
+.btn-success-check {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    transform: rotate(45deg);
+    display: none;
+}
+
+#submitBtn.success {
+    background: #28a745 !important;
+}
+
+/* ---------------------------------------------------
+   INLINE STATUS MESSAGE
+--------------------------------------------------- */
+#form-messages {
+    margin-top: 18px;
+    padding: 13px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    display: none;
+}
+
+/* Success */
+#form-messages.success {
+    background: #daf5d8;
+    color: #1a7a26;
+    border: 1px solid #b4e4ad;
+}
+
+/* Error */
+#form-messages.error {
+    background: #f8d7da;
+    color: #842029;
+    border: 1px solid #e5b4b7;
+}
+
+/* Info (optional) */
+#form-messages.info {
+    background: #e7f1ff;
+    color: #0b5ed7;
+    border: 1px solid #bcd7ff;
+}
+
+/* Shake animation for errors */
+#form-messages.shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* ---------------------------------------------------
+   RECAPTCHA SPACING
+--------------------------------------------------- */
+.g-recaptcha {
+    margin-top: 10px;
+}

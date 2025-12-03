@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contest</title>
+    <link rel="stylesheet" href="styles/shared.css">
+    <link rel="stylesheet" href="styles/contest.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <section>
+        <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+            <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
+                <mask id="moon-mask">
+                    <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+                    <circle cx="11" cy="3" r="8" fill="black"></circle>
+                </mask>
+                <circle
+                        class="sunMoon"
+                        cx="10"
+                        cy="10"
+                        r="8"
+                        mask="url(#moon-mask)"
+                ></circle>
+                <g>
+                    <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+                    <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+                    <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+                    <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+                    <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+                    <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+                </g>
+            </svg>
+        </label>
+    </section>
+
+    <section id="form">
+        <form id="contactForm" novalidate>
+            <div>
+                <label for="name">Full name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+
+
+            <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+
+
+            <div>
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+            </div>
+
+
+            <div>
+                <label for="q1">How do you use Wavebinder in your project?</label>
+                <textarea id="q1" name="q1" type="text" required></textarea>
+            </div>
+
+
+            <div>
+                <label for="q2">Link to your public repo</label>
+                <input id="q2" name="q2" required />
+            </div>
+
+
+            <div>
+                <label><input type="checkbox" id="privacy" name="privacy" required> I agree to the privacy policy</label>
+            </div>
+
+
+            <div>
+                <div class="g-recaptcha" data-sitekey="6LdkHiAsAAAAAPyhjan7ZlbqGuseI0p94vrcwhKD"></div>
+            </div>
+
+
+            <div class="actions">
+                <button id="submitBtn" type="submit">
+                    <span class="btn-text">Send</span>
+                    <div class="btn-loader"></div>
+                    <div class="btn-success-check"></div>
+                </button>
+            </div>
+
+            <div id="form-messages" class="status"></div>
+        </form>
+    </section>
+    <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
+    <script type="module" src="/js/shared.js"></script>
+    <script type="module" src="/js/contest.js"></script>
+</body>
+</html>
