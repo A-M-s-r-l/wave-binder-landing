@@ -27,7 +27,7 @@
 }
 
 #header span,
-#info span{
+#info h2 span{
     background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -237,7 +237,6 @@
     margin-bottom: -20px; /* Same as padding of parent */
 }
 
-
 #info-grid svg {
     position: absolute;
     bottom: 0;
@@ -300,8 +299,9 @@
     letter-spacing: 2px;
 }
 
-/* Always-visible gradient border */
-#cta button::before {
+/* Gradient border */
+#cta button::before,
+.submenu div::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -316,8 +316,9 @@
     z-index: 0;
 }
 
-/* Background layer for hover */
-#cta button::after {
+/* Gradient background on hover */
+#cta button::after,
+#cta .submenu div::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -329,17 +330,9 @@
 }
 
 /* Show background on hover */
-#cta button:hover::after {
+#cta button:hover::after,
+#cta .submenu div:hover::after {
     opacity: 1;
-}
-
-#cta button span {
-    font-weight: 600;
-}
-
-#cta button:hover span{
-    color: white;
-    -webkit-text-fill-color: white;
 }
 
 #cta svg{
@@ -351,42 +344,93 @@
     fill: white;
 }
 
-
-#cta > button span {
+/* Gradient text */
+#cta > button span,
+#cta .submenu-wrapper button span,
+#cta .submenu div span {
     font-weight: 600;
     position: relative;
     z-index: 1;
-
-    /* gradient text */
     background: var(--gradient-or-not);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* white overlay text */
-#cta > button span::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
+/* White Text on Hover */
+#cta button:hover span,
+#cta .submenu-wrapper button:hover span,
+#cta .submenu div:hover span {
     color: white;
-    opacity: 0; /* start invisible */
-    transition: opacity 5.3s ease-in-out; /* smooth fade */
-    pointer-events: none;
-    z-index: 2;
+    -webkit-text-fill-color: white;
 }
 
-/* fade in white on hover */
-#cta button:hover span::after {
-    opacity: 1;
+/* --- Submenu Styles --- */
+.submenu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.gap {
+    background-color: transparent;
+    height: 10px;
+    width: 100%;
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 250px;
+    background: transparent;
+    border-radius: 10px;
+    padding: 0;
+    display: none;
+    flex-direction: column;
+}
+
+/* Submenu items styled like main CTA buttons */
+.submenu div {
+    position: relative;
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    letter-spacing: 2px;
+    color: var(--text-color);
+}
+
+/* Border Radius */
+.submenu > div:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.submenu > div:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+/* Show submenu */
+/* Desktop hover support */
+.submenu-wrapper:hover .submenu {
+    display: flex;
+}
+
+/* Mobile click support */
+.submenu-wrapper.open .submenu {
+    display: flex;
 }
 
 /* Partners ---------------------------------------------------------------------------- */
 #partners {
-    display: flex;
+    /* display: flex;  --------------- TEMP */
+    display: none;
     flex-direction: column;
     align-items: center;
 }
@@ -396,7 +440,6 @@
     font-size: 1.7rem;
     margin-bottom: 3rem;
 }
-
 
 #partners-container {
     display: flex;
@@ -409,12 +452,10 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 50px 120px;
-
-    /* fading edges */
+    /* Fading edges */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
-
     mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     mask-repeat: no-repeat;
     mask-size: 100% 100%;

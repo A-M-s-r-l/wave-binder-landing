@@ -245,23 +245,30 @@
 
         <div id="cta">
             <button onclick="window.open('https://wavebinder.github.io/wavebinder-docs/', '_blank')">
-                <span data-text="DOCUMENTATION">DOCUMENTATION</span>
+                <span>DOCUMENTATION</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
                     <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
                 </svg>
             </button>
-            <button onclick="window.open('https://example.com', '_blank')">
-                <span data-text="BROCHURE">BROCHURE</span>
+            <button onclick="window.open('/assets/1025_Wavebinder_Presentazione.pdf', '_blank')">
+                <span>BROCHURE</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
                     <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
                 </svg>
             </button>
-            <button onclick="window.open('https://example.com', '_blank')">
-                <span data-text="EXAMPLE#1">EXAMPLE#1</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
-                    <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
-                </svg>
-            </button>
+            <div class="submenu-wrapper">
+                <button class="with-submenu">
+                    <span>EXAMPLE#1</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                        <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                    </svg>
+                </button>
+                <div class="gap"></div>
+                <div class="submenu">
+                    <div onclick="window.open('http://robot-example-app.s3-website.us-east-2.amazonaws.com/', '_blank')"><span>View App</span></div>
+                    <div onclick="window.open('https://github.com/A-M-s-r-l/wave-binder-robot-example-backend', '_blank')"><span>View Code</span></div>
+                </div>
+            </div>
         </div>
     </section>
 

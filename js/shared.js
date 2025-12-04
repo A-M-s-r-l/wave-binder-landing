@@ -1,9 +1,11 @@
 /* LENIS SCROLL ------------------------------------------------------------- */
 const lenis = new Lenis({
-    duration: 5,
     smooth: true,
     smoothTouch: true,
-    direction: 'vertical'
+    duration: 1.1,
+    gestureOrientation: 'vertical',
+    direction: 'vertical',
+    touchMultiplier: 1.8,
 })
 
 function raf(time) {
@@ -66,5 +68,19 @@ themeToggle.addEventListener("change", () => {
     }
 
     updateLogos();
+});
+
+/* Submenu click/tap support */
+document.querySelectorAll('.submenu-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent closing immediately
+        wrapper.classList.toggle('open');
+    });
+});
+
+// Close submenu when clicking outside
+document.addEventListener('click', () => {
+    document.querySelectorAll('.submenu-wrapper.open')
+        .forEach(w => w.classList.remove('open'));
 });
 
