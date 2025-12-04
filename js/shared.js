@@ -2,18 +2,14 @@
 const lenis = new Lenis({
     smooth: true,
     smoothTouch: true,
+    syncTouch:true,
     duration: 1.1,
     gestureOrientation: 'vertical',
     direction: 'vertical',
     touchMultiplier: 1.8,
+    autoRaf: true,
+    autoResize: true,
 })
-
-function raf(time) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
-}
-
-requestAnimationFrame(raf)
 
 /* THEME SELECTOR -------------------------------------------------------------------------------------- */
 const themeToggle = document.getElementById("themeToggle");
