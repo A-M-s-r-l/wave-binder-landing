@@ -52,7 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const join = document.getElementById('join');
     if (join) {
         document.getElementById('join-btn').addEventListener('click', () => {
-            lenis.scrollTo(join, { offset: -150, immediate: false });
+            lenis.scrollTo(join, { offset: -250, immediate: false });
+        });
+        // Navlink
+        document.getElementById("join-nav").addEventListener('click', (e) => {
+            e.preventDefault(); // ⛔ stop native anchor jump
+            lenis.scrollTo(join, { offset: -250, immediate: false });
         });
     }
 })
