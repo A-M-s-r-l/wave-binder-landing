@@ -35,10 +35,13 @@ h2 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 0 10%;
+    padding: 120px 10%;
     grid-template-columns: 1fr 1fr;
-    height: 100%;
     gap: 100px;
+}
+
+#conveyor-belt {
+    margin-top: -120px;
 }
 
 #header-img-mobile {
@@ -86,7 +89,7 @@ h2 {
 
 @media (max-width: 500px) {
     #header-grid h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 }
 

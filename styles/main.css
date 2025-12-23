@@ -457,9 +457,15 @@
     justify-content: center;
     align-items: center;
     width: 70%;
+    min-width: 350px;
+    gap: 50px;
     padding: 20px 5%;
     grid-template-columns: 1fr 1fr;
     background: linear-gradient(to left, var(--gradient-3), var(--gradient-1));
+}
+
+#banner-grid div {
+    gap: 20px;
 }
 
 #banner-grid h2 {
@@ -469,6 +475,23 @@
 
 #banner-grid img {
     width: 100%;
+}
+
+@media (max-width: 1100px) {
+    #banner-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #banner-grid div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #banner-grid h2 {
+        text-align: center;
+    }
 }
 
 /* Gradient Buttons ----------------------------------------- */
