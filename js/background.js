@@ -56,9 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(step);
     }
 
+
+    /* Dynamic Height Items */
+    const faq = document.getElementById("faq");
+    if (faq) {
+        const observer = new ResizeObserver(() => {
+            resizeBackground();
+        });
+        observer.observe(faq);
+    }
+
     // Update height on resize
     window.addEventListener('resize', () => {
+        console.log("we");
+        resizeBackground();
+    });
+
+
+    function resizeBackground() {
         const newHeight = Math.max(document.body.scrollHeight, window.innerHeight);
         gradientBg.style.height = newHeight + 'px';
-    });
+    }
+
 });

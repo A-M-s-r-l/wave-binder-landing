@@ -11,6 +11,52 @@ const lenis = new Lenis({
     autoResize: true,
 })
 
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    /* GENERAl -------------------------------------------------------------------------- */
+
+    //Navbar Animation
+    const nav_container = document.getElementById("nav-container");
+    if(nav_container) {
+        nav_container.classList.add("nav-animation");
+    }
+    // Navbar Urls
+    const links = document.querySelectorAll("ul li a");
+    const currentUrl = window.location.href;
+
+    links.forEach(link => {
+        const href = link.getAttribute("href");
+
+        // Special case for contest
+        if (currentUrl.includes("/contest")) {
+            if (href.includes("join") || href.includes("/contest")) {
+                link.classList.add("active");
+            }
+        }
+
+        // Home link
+        if (href === "/" && currentUrl.endsWith("/")) {
+            link.classList.add("active");
+        }
+    });
+
+    /* SCROLL TO LENIS -------------------------------------------------------------------------- */
+    // Contest
+    const join = document.getElementById('join');
+    if (join) {
+        document.getElementById('join-btn').addEventListener('click', () => {
+            lenis.scrollTo(join, { offset: -150, immediate: false });
+        });
+    }
+})
+
 /* THEME SELECTOR -------------------------------------------------------------------------------------- */
 const themeToggle = document.getElementById("themeToggle");
 
@@ -80,3 +126,6 @@ document.addEventListener('click', () => {
         .forEach(w => w.classList.remove('open'));
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    document.quer
+})

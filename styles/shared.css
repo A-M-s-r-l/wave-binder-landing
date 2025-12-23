@@ -8,6 +8,9 @@
     --gradient-2: #840a94;
     --gradient-3: #2113a8;
     --gradient-or-not: linear-gradient(to bottom, var(--gradient-1), var(--gradient-3));
+    --nav-color: #F1F1F1;
+    --button-bg-color: transparent;
+    --blue-title: #41E0DC;
 }
 
 .dark {
@@ -16,6 +19,8 @@
     --text-color-header-h2: #ffffff;
     --text-color-info-hover: #ffffff;
     --gradient-or-not: white;
+    --nav-color: #FAFAFA;
+    --button-bg-color: var(--nav-color);
 }
 
 * {
@@ -89,4 +94,299 @@ section {
 h3 {
     font-size: 1.6rem;
     font-weight: normal;
+}
+
+.blue-title {
+    color: var(--blue-title);
+}
+
+/* Theme Selector */
+#theme-selector {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: red;
+    height: 100px;
+    width: 100px;
+}
+.themeToggle {
+    color: var(--gradient-1);
+    width: 2.5em;
+}
+
+.st-sunMoonThemeToggleBtn {
+    position: absolute;
+    cursor: pointer;
+    top: 50px;
+    right: 25px;
+}
+
+.st-sunMoonThemeToggleBtn .themeToggleInput {
+    opacity: 0;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.st-sunMoonThemeToggleBtn svg {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+    transform: rotate(40deg);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunMoon {
+    transform-origin: center center;
+    transition: inherit;
+    transform: scale(1);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunRay {
+    transform-origin: center center;
+    transform: scale(0);
+}
+
+.st-sunMoonThemeToggleBtn svg mask > circle {
+    transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+    transform: translate(0px, 0px);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunRay2 {
+    animation-delay: 0.05s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay3 {
+    animation-delay: 0.1s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay4 {
+    animation-delay: 0.17s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+    animation-delay: 0.25s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+    animation-delay: 0.29s !important;
+}
+
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
+    transform: rotate(90deg);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg mask > circle {
+    transform: translate(16px, -3px);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunMoon {
+    transform: scale(0.55);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunRay {
+    animation: showRay1832 0.4s ease 0s 1 forwards;
+}
+
+@keyframes showRay1832 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Gradient Buttons ----------------------------------------- */
+.gradient-btn {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--button-bg-color);
+    border: none;
+    overflow: hidden;
+    display: flex;
+    height: 55px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 10px;
+    transition: color 0.3s ease;
+    letter-spacing: 2px;
+}
+
+.inverted {
+    background-color: transparent;
+}
+
+.gradient-btn:hover {
+    background: transparent;
+}
+
+/* Gradient border */
+.gradient-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px; /* Border thickness */
+    background: linear-gradient(to right, var(--gradient-1), var(--gradient-3));
+    -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0;
+}
+
+/* Gradient background on hover */
+.gradient-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to right, var(--gradient-1), var(--gradient-3));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+/* Show background on hover */
+.gradient-btn:hover::after {
+    opacity: 1;
+}
+
+.gradient-btn svg{
+    fill: url(#iconGradient);
+    transition: fill 0.3s ease-in-out;
+}
+
+.gradient-btn:hover svg,
+.dark .inverted svg{
+    fill: white;
+}
+
+/* Gradient text */
+.gradient-btn span {
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+
+    background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease;
+}
+
+/* White text on hover */
+.gradient-btn:hover span,
+.dark .inverted span {
+    background: none; /* remove gradient */
+    -webkit-text-fill-color: white;
+}
+
+/* NAV ----------------------------------------- */
+nav {
+    z-index: 1000;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    margin-top: 3vh;
+}
+
+#nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    width: 80%;
+    min-width: 350px;
+    height: 64px;
+    background: var(--nav-color);
+    color: black;
+    border-radius: 16px;
+    font-size: 1rem;
+    padding: 15px 35px;
+    margin-top: -200px;
+    transition: transform 1s ease-in-out;
+}
+
+.nav-animation {
+    transform: translateY(200px);
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: flex;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-weight: 500;
+    color: inherit;
+
+    /* required for gradient text */
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+
+    transition: background-position 0.3s ease;
+}
+
+/* hover + active gradient */
+nav ul li a:hover,
+nav ul li a:active,
+nav ul li a.active {
+    background-image: linear-gradient(
+            to bottom,
+            var(--gradient-1),
+            var(--gradient-3)
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    background-position: 100% 50%;
+}
+
+#theme-selector-container {
+    position: absolute;
+    height: 100%;
+    margin-top: -40px;
+    right: 0;
+}
+
+@media screen and (max-width: 800px) {
+    #theme-selector-container {
+        top: 88vh;
+    }
+}
+
+
+#logo-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 650px) {
+    #theme-selector-container {
+        top: 88vh;
+    }
+
+    #logo {
+        display: none;
+    }
+
+    #logo-mobile {
+        display: block;
+    }
+
+    #nav-container {
+        font-size: 1rem;
+        padding: 15px 20px;
+    }
 }

@@ -1,43 +1,243 @@
-#form {
+:root {
+    --title-color: black;
+    --text-color: #6a6a6a;
+}
+
+.dark {
+    --title-color: white;
+    --text-color: #cccccc;
+}
+
+h1,
+h3 {
+    color: var(--title-color);
+}
+
+h3 {
+    font-size: 3rem;
+}
+
+h2 {
+    color: var(--text-color);
+}
+
+/* Header ----------------------------------------- */
+#header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+#header-grid {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0 10%;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    gap: 100px;
+}
+
+#header-img-mobile {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    #header-grid {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #header-img {
+        display: none !important;
+    }
+
+    #header-img-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-bottom: 25px;
+    }
+
+    #header-img-mobile img {
+        width: 90%;
+        min-width: 350px;
+    }
+}
+
+#header-grid div {
+    display: flex;
+    flex-direction: column;
+}
+
+#header-grid h1 {
+    font-size: 4rem;
+}
+
+#header-grid h2 {
+    font-weight: 400;
+    font-size: 1.4rem;
+}
+
+#join-btn {
+    margin-top: 30px;
+}
+
+#conveyor-belt {
+    display: flex;
+    width: 100%;
+    min-height: 50px;
+    color: black;
+    background-color: var(--blue-title);
+    overflow: hidden;
+    position: relative;
+}
+
+.conveyor-content {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+}
+
+.conveyor-content span {
+    padding: 0 1rem;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* How it Works -------------------------------------------- */
+#how-it-works {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#how-it-works div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+#how-it-works div div {
+    width: 350px;
+    padding: 10px;
+    border: 1px solid #9a9bab;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Prizes -------------------------------------------------- */
+#prizes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+#prizes-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+    flex-direction: column;
+    border-radius: 16px;
+    border: 1px solid #9a9bab;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 225px;
+    width: 350px;
+    padding: 20px;
+    text-align: center;
+}
+
+.panel h4 {
+    font-size: 1.5rem;
+    color: var(--blue-title);
+}
+
+/* Join - Contact Form ----------------------------------------------------------------- */
+#join {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-/* ---------------------------------------------------
-   GLOBAL FORM WRAPPER
---------------------------------------------------- */
 #contactForm {
-    max-width: 650px;
-    margin: 40px auto;
+    width: 50%;
+    min-width: 350px;
     padding: 30px;
     border: 1px solid #e2e2e2;
-    border-radius: 10px;
-    background: #fafafa;
-    font-family: system-ui, sans-serif;
+    border-radius: 16px;
+    background-color: var(--nav-color);
+}
+
+#form-title {
+    font-size: 2.2rem;
+    background: linear-gradient(to right, var(--gradient-1), var(--gradient-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background 0.3s ease;
 }
 
 #contactForm div {
-    margin-bottom: 22px;
+    margin-bottom: 15px;
 }
 
 #contactForm label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
+    font-size: 1rem;
+    background: linear-gradient(to right, var(--gradient-3), var(--gradient-1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background 0.3s ease;
 }
 
-/* ---------------------------------------------------
-   INPUTS + TEXTAREA
---------------------------------------------------- */
+/* INPUTS + TEXTAREA */
 #contactForm input,
 #contactForm textarea {
+    margin-top: 5px;
     width: 100%;
     padding: 12px 14px;
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1px solid #4d4b5e;
+    border-radius: 16px;
     background: #fff;
     transition: border-color 0.25s, box-shadow 0.25s;
 }
@@ -45,6 +245,7 @@
 #contactForm textarea {
     resize: vertical;
     min-height: 110px;
+    font-family: inherit;
 }
 
 /* Focus */
@@ -55,9 +256,13 @@
     box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.25);
 }
 
-/* ---------------------------------------------------
-   VALIDATION
---------------------------------------------------- */
+#contactForm input::placeholder,
+#contactForm textarea::placeholder {
+    color: #75758B;
+    opacity: 1;
+}
+
+/* VALIDATION */
 input.invalid,
 textarea.invalid {
     border-color: #d9534f !important;
@@ -69,56 +274,58 @@ textarea.invalid:focus {
     box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.25);
 }
 
-/* ---------------------------------------------------
-   CHECKBOX
---------------------------------------------------- */
-#privacy {
-    width: auto;
-    margin-right: 8px;
+/* CHECKBOX */
+.checkbox-container {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
 }
 
-label[for="privacy"] {
-    display: inline-block;
-    font-weight: 500;
+.checkbox-container input {
+    width: 20px !important;
+    cursor: pointer;
 }
 
-/* ---------------------------------------------------
-   SUBMIT BUTTON + ANIMATIONS
---------------------------------------------------- */
+.checkbox-container label {
+    display: flex;
+    gap: 0.5rem;
+    color: #4d4b5e !important;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+.checkbox-container a {
+    text-decoration: none;
+    color: var(--gradient-1);
+}
+
+/* SUBMIT BUTTON + ANIMATIONS */
 #contactForm .actions {
     margin-top: 25px;
 }
 
 #submitBtn {
-    background: #4285f4;
-    color: white;
-    padding: 12px 24px;
-    font-size: 1.05rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    min-width: 140px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    transition: background 0.25s, transform 0.25s, opacity 0.25s;
+    z-index: 1;
 }
 
-#submitBtn:hover {
-    background: #357ae8;
+#submitBtn span {
+    background: linear-gradient(to right, var(--gradient-3), var(--gradient-1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease;
 }
 
-#submitBtn:disabled {
-    background: #9bbcf9;
-    cursor: not-allowed;
-    opacity: 0.7;
+#submitBtn:hover span {
+    background: none; /* remove gradient */
+    -webkit-text-fill-color: white;
 }
 
-/* ---------------------------------------------------
-   BUTTON LOADING SPINNER
---------------------------------------------------- */
+/* BUTTON LOADING SPINNER */
 .btn-loader {
     width: 20px;
     height: 20px;
@@ -133,9 +340,7 @@ label[for="privacy"] {
     to { transform: rotate(360deg); }
 }
 
-/* ---------------------------------------------------
-   SUCCESS CHECKMARK
---------------------------------------------------- */
+/* SUCCESS CHECKMARK */
 .btn-success-check {
     width: 18px;
     height: 18px;
@@ -146,13 +351,7 @@ label[for="privacy"] {
     display: none;
 }
 
-#submitBtn.success {
-    background: #28a745 !important;
-}
-
-/* ---------------------------------------------------
-   INLINE STATUS MESSAGE
---------------------------------------------------- */
+/* INLINE STATUS MESSAGE */
 #form-messages {
     margin-top: 18px;
     padding: 13px 16px;
@@ -175,13 +374,6 @@ label[for="privacy"] {
     border: 1px solid #e5b4b7;
 }
 
-/* Info (optional) */
-#form-messages.info {
-    background: #e7f1ff;
-    color: #0b5ed7;
-    border: 1px solid #bcd7ff;
-}
-
 /* Shake animation for errors */
 #form-messages.shake {
     animation: shake 0.3s ease-in-out;
@@ -195,9 +387,82 @@ label[for="privacy"] {
     100% { transform: translateX(0); }
 }
 
-/* ---------------------------------------------------
-   RECAPTCHA SPACING
---------------------------------------------------- */
 .g-recaptcha {
     margin-top: 10px;
+}
+
+/* FAQ --------------------------------------------------------------------------------- */
+#faq {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    padding: 0 10%;
+}
+
+.accordion {
+    min-width: 325px;
+    overflow: hidden;
+}
+
+.accordion-item {
+    border-bottom: 1px solid var(--title-color);
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.accordion-title {
+    color: var(--title-color);
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 500px) {
+    .accordion-title {
+        width: 200px;
+    }
+}
+
+.accordion-icon {
+    width: 15px;
+    height: 15px;
+    position: relative;
+}
+
+.accordion-icon svg {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-icon svg {
+    transform: rotate(-180deg);
+}
+
+.accordion-item.active .accordion-icon::before {
+    transform: rotate(90deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-content-inner {
+    padding: 0 2rem 1.5rem 2rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px;
 }

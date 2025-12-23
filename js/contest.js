@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         phone: document.getElementById("phone"),
         q1: document.getElementById("q1"),
         q2: document.getElementById("q2"),
+        q3: document.getElementById("q3"),
+        rules: document.getElementById("rules"),
         privacy: document.getElementById("privacy")
     };
 
@@ -19,20 +21,22 @@ document.addEventListener("DOMContentLoaded", () => {
         name: v => v.length >= 2,
         email: v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v),
         phone: v => v.trim().length >= 5,
-        q1: v => v.trim().length > 3,
+        q1: v => /^(https?:\/\/)?([\w.-]+)+(:\d+)?(\/([\w/_.]*)?)?$/.test(v),  // URL
         q2: v => v.trim().length > 5,
+        q3: v => v.trim().length > 5,
+        rules: checked => checked,
         privacy: checked => checked
     };
 
     // Live validation
     Object.entries(fields).forEach(([key, el]) => {
-        const evt = key === "privacy" ? "change" : "input";
+        const evt = key === "privacy" || key === "rules" ? "change" : "input";
         el.addEventListener(evt, () => validateField(key));
     });
 
     function validateField(key) {
         const el = fields[key];
-        const value = key === "privacy" ? el.checked : el.value.trim();
+        const value = key === "privacy" || key === "rules" ? el.checked : el.value.trim();
         const valid = validators[key](value);
 
         if (!valid) el.classList.add("invalid");
@@ -137,5 +141,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         stopLoading();
+    });
+
+    // FAQ
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const accordionItem = header.parentElement;
+            accordionItem.classList.toggle('active');
+        });
     });
 });
