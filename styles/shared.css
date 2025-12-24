@@ -363,7 +363,7 @@ nav ul li a.active {
 
 @media screen and (max-width: 800px) {
     #theme-selector-container {
-        top: 88vh;
+        bottom: 0 !important;
     }
 }
 
