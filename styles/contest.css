@@ -68,6 +68,7 @@ h2 {
         display: flex;
         flex-direction: column;
         text-align: center;
+        margin: auto 0;
     }
 
     #header-img {
@@ -105,6 +106,7 @@ h2 {
     background-color: var(--blue-title);
     overflow: hidden;
     position: relative;
+    margin-top: auto;
 }
 
 .conveyor-content {
