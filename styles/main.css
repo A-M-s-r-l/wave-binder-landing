@@ -1,4 +1,8 @@
 /* Header ----------------------------------------------------------------------------------------------- */
+#theme-selector-container {
+    position: fixed !important;
+}
+
 #header {
     display: flex;
     flex-direction: column;

@@ -109,6 +109,7 @@ h3 {
     height: 100px;
     width: 100px;
 }
+
 .themeToggle {
     color: var(--gradient-1);
     width: 2.5em;
@@ -359,14 +360,8 @@ nav ul li a.active {
     height: 100%;
     margin-top: -40px;
     right: 0;
+    z-index: 1000;
 }
-
-@media screen and (max-width: 800px) {
-    #theme-selector-container {
-        bottom: 0 !important;
-    }
-}
-
 
 #logo-mobile {
     display: none;
@@ -374,7 +369,7 @@ nav ul li a.active {
 
 @media screen and (max-width: 650px) {
     #theme-selector-container {
-        top: 88vh;
+        top: 88dvh;
     }
 
     #logo {
