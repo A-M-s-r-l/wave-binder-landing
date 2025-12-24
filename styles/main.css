@@ -1,6 +1,12 @@
 /* Header ----------------------------------------------------------------------------------------------- */
 #theme-selector-container {
-    position: fixed !important;
+    position: fixed;
+}
+
+@media screen and (max-width: 650px) {
+    #theme-selector-container {
+        top: 88dvh;
+    }
 }
 
 #header {

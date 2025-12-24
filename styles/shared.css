@@ -369,7 +369,7 @@ nav ul li a.active {
 
 @media screen and (max-width: 650px) {
     #theme-selector-container {
-        top: 88dvh;
+        top: 85dvh;
     }
 
     #logo {
