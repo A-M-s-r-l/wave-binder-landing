@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update height on resize
     window.addEventListener('resize', () => {
-        console.log("we");
         resizeBackground();
     });
 

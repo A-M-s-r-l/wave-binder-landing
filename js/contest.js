@@ -113,7 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
             phone: fields.phone.value.trim(),
             q1: fields.q1.value.trim(),
             q2: fields.q2.value.trim(),
-            privacy: fields.privacy.checked,
+            q3: fields.q3.value.trim(),
+            //rules: fields.rules.checked,
+            //privacy: fields.privacy.checked,
             "g-recaptcha-response": token
         };
 
