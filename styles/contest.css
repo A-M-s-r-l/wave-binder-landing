@@ -35,10 +35,10 @@ h2 {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 10% 10% 0 10%;
+    padding: 0 10% 0 10%;
     grid-template-columns: 1fr 1fr;
     gap: 100px;
-    margin-top: 100px;
+    height: 100%;
 }
 
 #header-img-mobile {
