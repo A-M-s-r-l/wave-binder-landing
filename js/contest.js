@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function stopLoading() {
         btnLoader.style.display = "none";
-        btnText.textContent = "Send";
+        btnText.textContent = "SUBMIT MY ENTRY";
         submitBtn.disabled = false;
     }
 
