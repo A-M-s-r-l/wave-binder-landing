@@ -18,14 +18,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadArticles();
 
         // Click handler for "Load More"
-        if (window.location.pathname.includes("/blog")) {
-            // Load more articles dynamically
-            loadMoreBtn.addEventListener("click", loadArticles);
-        } else {
-            // Redirect to the blog page
-            loadMoreBtn.addEventListener("click", () => {
-                window.location.href = "/blog";
-            });
+        if(loadMoreBtn) {
+            if (window.location.pathname.includes("/blog")) {
+                // Load more articles dynamically
+                loadMoreBtn.addEventListener("click", loadArticles);
+            } else {
+                // Redirect to the blog page
+                loadMoreBtn.addEventListener("click", () => {
+                    window.location.href = "/blog";
+                });
+            }
         }
 
     } catch (err) {
