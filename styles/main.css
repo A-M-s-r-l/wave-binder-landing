@@ -573,3 +573,18 @@
     -webkit-text-fill-color: transparent;
     transition: all 0.3s ease;
 }
+
+.row-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 750px) {
+    .row-container {
+        flex-direction: column;
+    }
+}
+
+#load-more-btn {
+    width: 275px !important;
+}

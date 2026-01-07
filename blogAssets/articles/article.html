@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Article | Wavebinder™</title>
+  <meta name="description" content="This is an Article" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" />
+  <link rel="stylesheet" href="../../styles/shared.css">
+  <link rel="stylesheet" href="../../styles/background.css">
+  <link rel="stylesheet" href="../../styles/article.css">
+</head>
+<body>
+<div id="gradient-bg">
+  <div class="gradients-container"></div>
+</div>
+
+<nav>
+  <div id="nav-container">
+    <img id="logo" class="logo" src="../../assets/logo-nav.svg" alt="wavebinder-logo"/>
+    <img id="logo-mobile" class="logo" src="../../assets/logo-nav-mobile.svg" alt="wavebinder-logo"/>
+    <ul>
+      <li><a href="/">HOME</a></li>
+      <li><a href="/contest">CONTEST</a></li>
+      <li><a href="/blog">BLOG</a></li>
+    </ul>
+  </div>
+  <div id="theme-selector-container">
+    <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+      <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
+        <mask id="moon-mask">
+          <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+          <circle cx="11" cy="3" r="8" fill="black"></circle>
+        </mask>
+        <circle
+                class="sunMoon"
+                cx="10"
+                cy="10"
+                r="8"
+                mask="url(#moon-mask)"
+        ></circle>
+        <g>
+          <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+          <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+          <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+          <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+          <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+          <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+        </g>
+      </svg>
+    </label>
+  </div>
+</nav>
+
+<section id="article">
+  <div id="article-container">
+    <h1>Lorem ipsum dolor sit amet consectetur. </h1>
+    <span>December 3, 2025 by Maria Rossi</span>
+    <img src="/blogAssets/images/Rectangle-26.png" alt="Article Image"/>
+    <p>Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+    <h2>Lorem ipsum dolor sit amet</h2>
+    <h3>Praesent amet ipsum</h3>
+    <p>Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci. Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque.</p>
+    <h3>Praesent amet ipsum</h3>
+    <p>Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci. Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+    <h2>Lorem ipsum dolor sit amet</h2>
+    <p>Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+    <h3>Praesent amet ipsum</h3>
+    <p>Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+    <h2>Lorem ipsum dolor sit amet</h2>
+    <p>Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+
+    <div id="author">
+      <hr />
+      <div id="author-container">
+        <div id="author-img">
+          <img src="/blogAssets/pfp/maria.svg" alt="Maria Rossi"/>
+        </div>
+        <div id="author-info">
+          <h3>Maria Rossi</h3>
+          <span>Web Developer</span>
+          <div id="social-container">
+            <a href="https://github.com/A-M-s-r-l" target="_blank"><img src="/assets/github.svg" alt="Github"></a>
+            <a href="https://linkedin.com" target="_blank"><img src="/assets/linkedin.svg" alt="Linkedin"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved.</p>
+</footer>
+
+<script>
+  const currentDate = new Date();
+  document.getElementById("year").textContent = currentDate.getFullYear();
+</script>
+<script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
+<script type="module" src="/js/shared.js"></script>
+<script type="module" src="/js/background.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog | Wavebinder™</title>
+    <meta name="description" content="A dependency manager to simplify data relationships So you can focus on business logic" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="styles/shared.css">
+    <link rel="stylesheet" href="styles/background.css">
+    <link rel="stylesheet" href="styles/blog.css">
+</head>
+<body>
+    <div id="gradient-bg">
+        <div class="gradients-container"></div>
+    </div>
+
+    <nav>
+        <div id="nav-container">
+            <img id="logo" class="logo" src="assets/logo-nav.svg" alt="wavebinder-logo"/>
+            <img id="logo-mobile" class="logo" src="assets/logo-nav-mobile.svg" alt="wavebinder-logo"/>
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/contest">CONTEST</a></li>
+                <li><a href="#blog" id="blog-nav" class="active">BLOG</a></li>
+            </ul>
+        </div>
+        <div id="theme-selector-container">
+            <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+                <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
+                    <mask id="moon-mask">
+                        <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+                        <circle cx="11" cy="3" r="8" fill="black"></circle>
+                    </mask>
+                    <circle
+                            class="sunMoon"
+                            cx="10"
+                            cy="10"
+                            r="8"
+                            mask="url(#moon-mask)"
+                    ></circle>
+                    <g>
+                        <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+                        <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+                        <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+                        <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+                        <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+                        <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+                    </g>
+                </svg>
+            </label>
+        </div>
+    </nav>
+
+    <section id="blog">
+        <div id="blog-container">
+            <h1>Blog</h1>
+            <p>Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+            <div id="article-grid"></div>
+        </div>
+
+        <button id="load-more-btn" class="gradient-btn inverted">
+            <span>LOAD MORE</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                <defs>
+                    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="var(--gradient-1)" />
+                        <stop offset="100%" stop-color="var(--gradient-3)" />
+                    </linearGradient>
+                </defs>
+                <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+            </svg>
+        </button>
+
+    </section>
+
+    <footer>
+        <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const currentDate = new Date();
+        document.getElementById("year").textContent = currentDate.getFullYear();
+    </script>
+    <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
+    <script type="module" src="/js/shared.js"></script>
+    <script type="module" src="/js/background.js"></script>
+    <script type="module" src="/js/loadBlog.js"></script>
+</body>
+</html>

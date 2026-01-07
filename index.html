@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/shared.css">
     <link rel="stylesheet" href="styles/background.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/blog.css">
 </head>
 <body>
     <div id="gradient-bg">
@@ -392,6 +393,27 @@
         </div>
     </section>
 
+    <section id="blog">
+        <div id="blog-container">
+            <h1>Blog</h1>
+            <div class="row-container">
+                <p>Lorem ipsum dolor sit amet consectetur. Praesent amet ipsum amet vulputate scelerisque. Amet amet aliquet sollicitudin eu duis. Suscipit arcu dignissim mattis nulla sed morbi. Sed mi turpis lectus et eu orci.</p>
+                <button id="load-more-btn" class="gradient-btn inverted">
+                    <span>SEE ALL ARTICLES</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                        <defs>
+                            <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="var(--gradient-1)" />
+                                <stop offset="100%" stop-color="var(--gradient-3)" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                    </svg>
+                </button>
+            </div><div id="article-grid"></div>
+        </div>
+    </section>
+
     <footer>
         <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved.</p>
     </footer>
@@ -403,5 +425,6 @@
     <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
     <script type="module" src="/js/shared.js"></script>
     <script type="module" src="/js/background.js"></script>
+    <script type="module" src="/js/loadBlog.js"></script>
 </body>
 </html>

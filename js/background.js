@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* Dynamic Height Items */
-    const faq = document.getElementById("faq");
-    if (faq) {
+    const body = document.body;
+    if (body) {
         const observer = new ResizeObserver(() => {
             resizeBackground();
         });
-        observer.observe(faq);
+        observer.observe(body);
     }
 
     // Update height on resize

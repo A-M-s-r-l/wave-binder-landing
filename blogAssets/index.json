@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "article",
+    "title": "Lorem ipsum dolor sit amet consectetur. ",
+    "date": "2025-12-10",
+    "author": "Alessio"
+  },
+  {
+    "slug": "dependency-graph",
+    "title": "Understanding Dependency Graphs",
+    "date": "2025-12-05",
+    "author": "Alessio"
+  },
+  {
+    "slug": "wavebinder-intro",
+    "title": "Wavebinder Introduction",
+    "date": "2025-12-03",
+    "author": "Alessio"
+  },
+  {
+    "slug": "wavebinder-intro",
+    "title": "Wavebinder Introduction",
+    "date": "2025-12-03",
+    "author": "Alessio"
+  }
+]

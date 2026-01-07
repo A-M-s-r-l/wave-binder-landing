@@ -60,6 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
             lenis.scrollTo(join, { offset: -250, immediate: false });
         });
     }
+
+    // Blog
+    const blog_nav = document.getElementById('blog-nav');
+    if (blog_nav) {
+        // Navlink
+        document.getElementById("blog-nav").addEventListener('click', (e) => {
+            e.preventDefault(); // ⛔ stop native anchor jump
+            lenis.scrollTo(0, 0);
+        });
+    }
 })
 
 /* THEME SELECTOR -------------------------------------------------------------------------------------- */

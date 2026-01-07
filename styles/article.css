@@ -1,0 +1,143 @@
+:root {
+    --checker-light: white;
+    --checker-dark: rgba(241, 241, 241, 0.5);
+    --p-color: var(--text-color);
+    --span-color: var(--text-color-2);
+}
+
+.dark {
+    --checker-light: #050505;
+    --checker-dark: rgba(241, 241, 241, 0.05);
+    --p-color: #d1d1d1;
+}
+
+/* CHECKER PATTERN */
+#gradient-bg {
+    background:
+        conic-gradient(
+                var(--checker-dark) 0deg 90deg,
+                var(--checker-light) 90deg 180deg,
+                var(--checker-dark) 180deg 270deg,
+                var(--checker-light) 270deg 360deg
+        );
+    background-size: 20dvw 20dvw;
+}
+
+h1{
+    background: linear-gradient(90deg, #FF0098, #15178D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background 0.3s ease;
+}
+
+h2,
+.gradient-title {
+    background: linear-gradient(90deg, #0C188D -11.25%, #FF0098 54.84%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background 0.3s ease;
+}
+
+#article {
+    display: flex;
+    justify-content: center;
+    padding-top: 125px;
+}
+
+#article-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+    max-width: 750px;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+#article-container p {
+    font-size: 1rem;
+    color: var(--p-color);
+}
+
+#article-container span {
+    font-size: 0.9rem;
+    color: var(--span-color);
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+img {
+    border-radius: 10px;
+}
+
+
+/* AUTHOR */
+hr {
+    display: flex;
+    align-self: center;
+    width: 95%;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    border-top: 2px solid rgba(126, 126, 148, 0.5);
+}
+
+#author-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+}
+
+#author-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#author-img img {
+    /* transform: translateY(350px); /* Manual Fix of Image */
+}
+
+#author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#author-info h3 {
+    font-size: 1.3rem;
+}
+
+#author-info span {
+    font-size: 1rem;
+}
+
+#social-container {
+    display: flex;
+    gap: 15px;
+    margin-top: -15px;
+}
+
+#social-container img {
+    height: 25px;
+    border-radius: 0;
+}
+
