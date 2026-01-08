@@ -1,7 +1,7 @@
 :root {
     --checker-light: white;
     --checker-dark: rgba(241, 241, 241, 0.3);
-    --p-color: var(--text-color);
+    --p-color: black;
     --span-color: var(--text-color-2);
 }
 
