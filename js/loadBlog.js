@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Fetch articles index
-        const res = await fetch("../blogAssets/index.json");
+        const res = await fetch("../blog/index.json");
         if (!res.ok) throw new Error("Failed to fetch index.json");
         allArticles = await res.json();
 
