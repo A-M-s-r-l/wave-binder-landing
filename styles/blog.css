@@ -7,7 +7,7 @@
     --p-color: #d1d1d1;
 }
 
-#blog h3 {
+#blog h3:not(.exclude) {
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-color);

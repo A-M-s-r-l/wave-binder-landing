@@ -490,3 +490,11 @@ textarea.invalid:focus {
 #load-more-btn {
     width: 275px !important;
 }
+
+#blog {
+    display: flex;
+}
+
+#blog a {
+    text-decoration: none;
+}

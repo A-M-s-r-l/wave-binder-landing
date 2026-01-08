@@ -1,13 +1,13 @@
 :root {
     --checker-light: white;
-    --checker-dark: rgba(241, 241, 241, 0.5);
+    --checker-dark: rgba(241, 241, 241, 0.3);
     --p-color: var(--text-color);
     --span-color: var(--text-color-2);
 }
 
 .dark {
     --checker-light: #050505;
-    --checker-dark: rgba(241, 241, 241, 0.05);
+    --checker-dark: rgba(241, 241, 241, 0.03);
     --p-color: #d1d1d1;
 }
 
