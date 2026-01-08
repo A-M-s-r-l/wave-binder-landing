@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // OPEN ARTICLE IN NEW TAB
             articleEl.addEventListener("click", () => {
-                window.open(`/blogAssets/articles/${article.slug}`, "_blank");
+                window.open(`/blog/articles/${article.slug}`, "_blank");
             });
 
             // Optional UX improvements
