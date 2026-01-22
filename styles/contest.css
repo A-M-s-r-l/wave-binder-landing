@@ -395,8 +395,8 @@ textarea.invalid:focus {
     100% { transform: translateX(0); }
 }
 
-.g-recaptcha {
-    margin-top: 10px;
+.cf-turnstile {
+    margin-top: 30px;
 }
 
 /* FAQ --------------------------------------------------------------------------------- */
@@ -497,4 +497,106 @@ textarea.invalid:focus {
 
 #blog a {
     text-decoration: none;
+}
+
+/* COOKIE BANNER */
+:root {
+    --cookie_theme_color: #e80080;
+    --cookie_bg_color: #0b181c;
+}
+
+.cookie-banner {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--cookie_bg_color);
+    color: white;
+    padding: 1.5rem;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.cookie-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cookie-content p {
+    flex: 1;
+    margin: 0;
+}
+
+.cookie-content a {
+    color: var(--cookie_theme_color);
+    text-decoration: underline;
+}
+
+.btn-cookie {
+    background: var(--cookie_theme_color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.3s;
+}
+
+.btn-cookie:hover {
+    background: #45a049;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        margin: 2rem auto;
+    }
+
+    #contact-form {
+        padding: 1.5rem;
+    }
+
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .btn-cookie {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    #contact-form {
+        padding: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .btn-submit {
+        padding: 0.875rem;
+    }
 }

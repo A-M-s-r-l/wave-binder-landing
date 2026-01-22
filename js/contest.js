@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const form = document.getElementById("contactForm");
     const statusBox = document.getElementById("form-messages");
     const submitBtn = document.getElementById("submitBtn");
     const btnText = submitBtn.querySelector(".btn-text");
     const btnLoader = submitBtn.querySelector(".btn-loader");
     const btnCheck = submitBtn.querySelector(".btn-success-check");
+    let turnstileToken = null;
 
     const fields = {
         name: document.getElementById("name"),
@@ -89,6 +91,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1500);
     }
 
+    function clearStatus() {
+        statusBox.style.display = "none";
+        statusBox.textContent = "";
+    }
+
+    window.turnstileCallback = function (token) {
+        turnstileToken = token;
+    };
+
     // Submit handler (no page reload)
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -99,9 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const token = grecaptcha.getResponse();
-        if (!token) {
-            showStatus("Please complete the reCAPTCHA.", "error");
+        if (!turnstileToken) {
+            showStatus("Please verify you are human.", "error");
             return;
         }
 
@@ -116,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
             q3: fields.q3.value.trim(),
             //rules: fields.rules.checked,
             //privacy: fields.privacy.checked,
-            "g-recaptcha-response": token
+            cf_turnstile_response: turnstileToken
         };
 
         try {
@@ -132,7 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 playSuccessAnimation();
                 showStatus("Your message has been sent!", "success");
                 form.reset();
-                grecaptcha.reset();
+                turnstile.reset();
+                turnstileToken = null;
             } else {
                 showStatus(data.message || "Submission failed.", "error");
             }
