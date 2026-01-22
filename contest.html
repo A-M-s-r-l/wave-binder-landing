@@ -370,7 +370,7 @@
         // Manage Cookie Banner
         window.addEventListener('load', function() {
             // Check if user has already seen the banner
-            if (localStorage.getItem('cookie_notice_seen')) {
+            if (!localStorage.getItem('cookie_notice_seen')) {
                 document.getElementById('cookie-notice').style.display = 'block';
             }
         });

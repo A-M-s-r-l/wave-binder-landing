@@ -502,6 +502,7 @@ textarea.invalid:focus {
 /* COOKIE BANNER */
 :root {
     --cookie_theme_color: #e80080;
+    --cookie_theme_color_2: #2113a8;
     --cookie_bg_color: #0b181c;
 }
 
@@ -561,7 +562,7 @@ textarea.invalid:focus {
 }
 
 .btn-cookie:hover {
-    background: #45a049;
+    background: var(--cookie_theme_color_2);
 }
 
 @media (max-width: 768px) {
