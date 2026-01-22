@@ -62,11 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function clearStatus() {
-        statusBox.style.display = "none";
-        statusBox.textContent = "";
-    }
-
     // Button animations
     function startLoading() {
         submitBtn.disabled = true;
