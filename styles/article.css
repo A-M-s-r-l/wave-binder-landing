@@ -73,6 +73,12 @@ h3 {
     color: var(--p-color);
 }
 
+#article-container ul {
+    padding-left: 30px;
+    font-size: 1rem;
+    color: var(--p-color);
+}
+
 #article-container span {
     font-size: 0.9rem;
     color: var(--span-color);
@@ -84,6 +90,9 @@ img {
     border-radius: 10px;
 }
 
+b {
+    font-weight: 800;
+}
 
 /* AUTHOR */
 hr {
@@ -112,8 +121,14 @@ hr {
     border-radius: 10px;
 }
 
-#author-img img {
-    /* transform: translateY(350px); /* Manual Fix of Image */
+/* Manual fix of image
+#author-img imgId {
+    transform: translateY(350px);
+}
+*/
+
+#engeesoftware {
+    height: 100%;
 }
 
 #author-info {
@@ -139,5 +154,10 @@ hr {
 #social-container img {
     height: 25px;
     border-radius: 0;
+}
+
+#tags {
+    margin-top: 25px !important;
+    margin-bottom: -10px !important;
 }
 

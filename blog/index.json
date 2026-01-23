@@ -1,26 +1,9 @@
 [
   {
-    "slug": "article",
-    "title": "Lorem ipsum dolor sit amet consectetur. ",
-    "date": "2025-12-10",
-    "author": "Alessio"
-  },
-  {
-    "slug": "dependency-graph",
-    "title": "Understanding Dependency Graphs",
-    "date": "2025-12-05",
-    "author": "Alessio"
-  },
-  {
-    "slug": "wavebinder-intro",
-    "title": "Wavebinder Introduction",
-    "date": "2025-12-03",
-    "author": "Alessio"
-  },
-  {
-    "slug": "wavebinder-intro",
-    "title": "Wavebinder Introduction",
-    "date": "2025-12-03",
-    "author": "Alessio"
+    "slug": "001-il-primo-passo-verso-wavebinder",
+    "title": "Il Primo Passo verso Wavebinder",
+    "date": "2026-01-23",
+    "author": "Senior Software Architect",
+    "tags": ["Software Architecture", "Angular", "Server-Driven UI", "Legacy Migration", "Complex Event Processing"]
   }
 ]
