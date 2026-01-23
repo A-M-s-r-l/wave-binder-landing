@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>From Imperative Approach to Server-Driven UI – Industrial Configurator | Wavebinder™</title>
+  <meta name="description" content="Server-Driven UI and Angular: the first steps towards the Wavebinder™ library, transforming a complex industrial configurator into a scalable solution.">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" />
+  <link rel="stylesheet" href="../../styles/shared.css">
+  <link rel="stylesheet" href="../../styles/background.css">
+  <link rel="stylesheet" href="../../styles/article.css">
+</head>
+<body>
+<div id="gradient-bg">
+  <div class="gradients-container"></div>
+</div>
+
+<nav>
+  <div id="nav-container">
+    <img id="logo" class="logo" src="../../assets/logo-nav.svg" alt="wavebinder-logo"/>
+    <img id="logo-mobile" class="logo" src="../../assets/logo-nav-mobile.svg" alt="wavebinder-logo"/>
+    <ul>
+      <li><a href="/">HOME</a></li>
+      <li><a href="/contest">CONTEST</a></li>
+      <li><a href="/blog">BLOG</a></li>
+    </ul>
+  </div>
+  <div id="theme-selector-container">
+    <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+      <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
+        <mask id="moon-mask">
+          <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+          <circle cx="11" cy="3" r="8" fill="black"></circle>
+        </mask>
+        <circle
+                class="sunMoon"
+                cx="10"
+                cy="10"
+                r="8"
+                mask="url(#moon-mask)"
+        ></circle>
+        <g>
+          <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+          <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+          <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+          <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+          <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+          <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+        </g>
+      </svg>
+    </label>
+  </div>
+</nav>
+
+<section id="article">
+  <div id="article-container">
+    <h1 style="font-size: 2rem">
+      From Imperative Approach to Server-Driven UI:
+      <br />
+      Refactoring a Complex Industrial Configurator (The First Step Towards Wavebinder)
+    </h1>
+    <span>January 23, 2026 by Senior Software Architect</span>
+
+    <h2>Introduction: The Challenge of "Mass Customization"</h2>
+    <p>
+      In the industrial landscape, selling complex machinery is never a simple transaction. For multinational manufacturing companies, the concept of a "standard product" is an abstraction: the reality is Mass Customization. Each machine sold is a unique engineering project, although derived from standardized macro-categories.
+    </p>
+    <p>
+      In 2017, we faced a critical architectural challenge for a U.S. multinational client.
+      The goal was to decommission a legacy tool ecosystem based on Java Swing and migrate to a modern web solution (CPQ – Configure, Price, Quote).
+      The system had to generate CAD studies, thermodynamic feasibility calculations, and real-time economic quotes.
+    </p>
+    <p>
+      The constraints were strict:
+      <ul>
+        <li><b>Time-to-market:</b> 18 months for a complete rewrite</li>
+        <li><b>Technology Stack:</b> Frontend Angular (v2/v4 at the time), Backend Spring Boot.</li>
+        <li>
+          <b>Resources:</b> A core team of 3 senior developers with strong backgrounds in PHP and Desktop Applications, but initially unfamiliar with the complexities of a reactive Single Page Application (SPA).
+        </li>
+      </ul>
+    </p>
+
+    <h2>The "Wall" of Complexity: Failure of the Imperative Approach</h2>
+    <p>
+      In the early development stages, the team approached the problem with the typical mindset of traditional desktop applications and classic web: a strongly <b>imperative</b> approach.
+    </p>
+    <p>
+      The configurator required managing hundreds of interdependent parameters (ComboBoxes, dynamic Selects,
+      input arrays). Changing a parameter at the top of the chain would trigger a cascading reaction: resetting
+      subsequent fields, recalculating intermediate values, disabling incompatible options, and making asynchronous API calls for external validations.
+    </p>
+    <p>
+      We attempted to encode this logic directly in the Angular components. The result was a
+      rapid increase in technical debt:
+    <ul>
+      <li>
+        <b>Hardcoding Dependencies:</b> Every business rule ("If A changes, reset B and load C") was written
+        directly in TypeScript.
+      </li>
+      <li>
+        <b>Managing Asynchronous State:</b> The asynchronous nature of validations created race conditions that were difficult
+        to handle imperatively (e.g., the user changed input before the previous calculation was complete).
+      </li>
+      <li>
+        <b>Cyclomatic Complexity:</b> Component files became unmanageable, full of nested if/else statements
+        to manage widget visibility and state.
+      </li>
+    </ul>
+    </p>
+    <p>
+      The system had become rigid. Every new client request involved risky refactoring and potential regressions.
+      It was clear that the architecture could not scale with the complexity of the domain.
+    </p>
+
+    <h2>Paradigm Shift: Towards a Server-Driven UI</h2>
+    <p>
+      To get out of the deadlock, we made a drastic architectural pivot, moving from a <i>Client-Centric</i> approach
+      to a <b>Metadata-Driven</b> (or Server-Driven UI) approach.
+    </p>
+    <p>
+      The core idea was to strip the frontend of any domain-specific business logic. We redesigned the Angular application
+      as an "agnostic shell," a pure renderer divided into three fixed structural areas:
+    <ul style="list-style-type: decimal;">
+      <li>
+        <b>Header:</b> Navigation and mode management (e.g., Engineer vs Sales).
+      </li>
+      <li>
+        <b>Sidebar (Input):</b> A dynamic container for configuration widgets.
+      </li>
+      <li>
+        <b>Panel (Output):</b> Results display area (charts, tables, reports).
+      </li>
+    </ul>
+    </p>
+    <p>
+      Instead of writing code for every new form, we moved the interface definitions and behavior rules into the
+      <b>Database</b>, elevating it to a <i>Single Source of Truth</i>.
+    </p>
+
+    <h2>Technical Deep Dive: The "Data Pool" and Relational Orchestration</h2>
+    <p>
+      The implemented architecture was based on three technical pillars:
+    </p>
+
+    <h3>A. The Relational Structure as Validator</h3>
+    <p>
+      Unlike modern approaches that often store UI configurations in NoSQL JSON blobs, we chose
+      to model the configuration in a <b>Relational Database</b>. We mapped entities such as <span style="color: #c9af75;">Step</span>, <span style="color: #c9af75;">Section</span>,
+      <span style="color: #c9af75;">Widget</span>, and <span style="color: #c9af75;">Rule</span>. <b>Why this choice?</b> To leverage referential integrity. Database constraints (Foreign Keys)
+      prevented upstream configuration errors (e.g., linking a rule to a non-existent widget), ensuring
+      robustness that hand-written JSON could not provide. This also allowed non-developer domain experts
+      to modify business rules directly in the data without touching code.
+    </p>
+
+    <h3>B. The Concept of "Data Pool"</h3>
+    <p>
+      The frontend managed a single central state object, the "Data Pool": a key-value map containing
+      all user inputs. The Angular component did not know what the data was; it only knew how
+      to render it.
+    </p>
+
+    <h3>C. The Declarative Rendering Cycle</h3>
+    <p>
+      The operational flow became as follows:
+    <ul style="list-style-type: decimal;">
+      <li>
+        The client requests the configuration for the current step from the server.
+      </li>
+      <li>
+        The server responds with a JSON describing the layout and widget metadata (e.g., "Render a
+        ComboBox, label 'Voltage', ID 'vol_01'").
+      </li>
+      <li>
+        The JSON includes metadata for populating options: "<i>For the options, call the API <span style="color: #c9af75;">/api/voltages</span>, passing
+        the current value of <span style="color: #c9af75;">machine_type</span> present in the Data Pool</i>".
+      </li>
+      <li>
+        When a value changes, the frontend updates the Data Pool and emits a generic event. The system
+        recalculates dependencies based on the received rules (e.g., visibility, disabling) without custom code.
+      </li>
+    </ul>
+    </p>
+
+    <h2>Conclusion: Long-Term Benefits</h2>
+    <p>
+      This transition from imperative to declarative logic saved the project and laid the foundation
+      for the team’s future growth.
+    </p>
+    <p>
+      <b>Key Results:</b>
+    <ul>
+      <li>
+        <b>Total Decoupling:</b> The development team could work on improving the widgets (the container)
+        independently of changes to business rules (the content), often managed by domain experts
+        through queries or admin interfaces.
+      </li>
+      <li>
+        <b>Scalable Onboarding:</b> The team grew from 3 to 15 people. New developers did not need
+        to learn the complex engineering logic of the machines, only the logic of the standardized rendering framework.
+      </li>
+      <li>
+        <b>Maintainability:</b> Reducing "spaghetti" code drastically decreased regression bugs.
+      </li>
+      <li>
+        <b>Flexibility:</b> Adding new products to the configurator became a matter of data entry and
+        database configuration, not software development.
+      </li>
+    </ul>
+    </p>
+    <p>
+      At a time when Angular was still immature, adopting a <b>Server-Driven UI</b> pattern allowed us
+      to tame complexity, turning a potential failure into a strategic asset that still serves the company today.
+    </p>
+
+    <span id="tags">
+      <b>Tags:</b> <i>Software Architecture, Angular, Server-Driven UI, Legacy Migration, Complex Event Processing</i>
+    </span>
+
+    <div id="author">
+      <hr />
+      <div id="author-container">
+        <div id="author-img">
+          <img id="engeesoftware" src="/blog/pfp/EngeeSoftware.png" alt="EngeeSoftware"/>
+        </div>
+        <div id="author-info">
+          <h3>EngeeSoftware</h3>
+          <span>Senior Software Architect</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved.</p>
+</footer>
+
+<script>
+  const currentDate = new Date();
+  document.getElementById("year").textContent = currentDate.getFullYear();
+</script>
+<script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
+<script type="module" src="/js/shared.js"></script>
+<script type="module" src="/js/background.js"></script>
+</body>
+</html>

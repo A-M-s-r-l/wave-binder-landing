@@ -1,7 +1,7 @@
 [
   {
-    "slug": "001-il-primo-passo-verso-wavebinder",
-    "title": "Il Primo Passo verso Wavebinder",
+    "slug": "001-the-first-step-towards-wavebinder",
+    "title": "The First Step Towards Wavebinder",
     "date": "2026-01-23",
     "author": "Senior Software Architect",
     "tags": ["Software Architecture", "Angular", "Server-Driven UI", "Legacy Migration", "Complex Event Processing"]
