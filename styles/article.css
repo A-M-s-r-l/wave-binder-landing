@@ -9,6 +9,7 @@
     --checker-light: #050505;
     --checker-dark: rgba(241, 241, 241, 0.03);
     --p-color: #d1d1d1;
+    --dark-title-color: #f6149b;
 }
 
 /* CHECKER PATTERN */
@@ -23,12 +24,16 @@
     background-size: 20dvw 20dvw;
 }
 
-h1{
+h1 {
     background: linear-gradient(90deg, #FF0098, #15178D);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     transition: background 0.3s ease;
+}
+
+.dark h1 {
+    color: var(--dark-title-color);
 }
 
 h2,
@@ -38,6 +43,11 @@ h2,
     background-clip: text;
     color: transparent;
     transition: background 0.3s ease;
+}
+
+.dark h2,
+.dark .gradient-title {
+    color: var(--dark-title-color);
 }
 
 #article {
