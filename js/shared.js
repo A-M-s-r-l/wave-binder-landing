@@ -59,6 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault(); // ⛔ stop native anchor jump
             lenis.scrollTo(join, { offset: -250, immediate: false });
         });
+        // Buttons
+        const faq = document.getElementById('faq');
+        document.getElementById("faq-btn").addEventListener('click', (e) => {
+            e.preventDefault(); // ⛔ stop native anchor jump
+            lenis.scrollTo(faq, { offset: -250, immediate: false });
+        });
     }
 
     // Blog
