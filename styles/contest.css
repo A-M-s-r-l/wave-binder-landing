@@ -224,6 +224,10 @@ h2 {
     padding: 0 10%;
 }
 
+#faq ul {
+    padding-left: 30px;
+}
+
 .accordion {
     min-width: 325px;
     overflow: hidden;
