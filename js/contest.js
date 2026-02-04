@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: v => v.length >= 2,
         email: v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v),
         phone: v => /^\+?\d+$/.test(v.trim()), // phone must be all digits, optional "+" at start
-        q1: v => /^(https?:\/\/)?([\w.-]+)+(:\d+)?(\/([\w/_.]*)?)?$/.test(v),  // URL
+        q1: v => /^https?:\/\/.+/.test(v),  // URL
         q2: v => v.trim().length > 5,
         q3: v => v.trim().length > 5,
         rules: checked => checked,
