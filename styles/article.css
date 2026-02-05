@@ -3,6 +3,7 @@
     --checker-dark: rgba(241, 241, 241, 0.3);
     --p-color: black;
     --span-color: var(--text-color-2);
+    --gold-highlight: #c9af75;
 }
 
 .dark {
@@ -171,3 +172,7 @@ hr {
     margin-bottom: -10px !important;
 }
 
+.gold-highlight {
+    color: var(--gold-highlight) !important;
+    font-size: inherit !important;
+}

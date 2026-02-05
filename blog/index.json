@@ -13,5 +13,13 @@
     "date": "2026-01-29",
     "author": "Technical Product Manager / Software Architect",
     "tags": ["Product Management", "Startup Lessons", "Server-Driven UI", "Low-Code", "Developer Experience"]
+  },
+
+  {
+    "slug": "003-architectural-pivot-from-legacy-monolith-to-multi-framework-headless-library-the-genesis-of–wavebinder",
+    "title": "Architectural Pivot: From Legacy Monolith to Multi-Framework 'Headless' Library. The Genesis of Wavebinder",
+    "date": "2026-02-04",
+    "author": "Senior Software Engineer / Lead Architect",
+    "tags": ["Software Architecture", "Headless UI", "State Management", "Multi-Framework", "Clean Architecture", "TypeScript"]
   }
 ]
