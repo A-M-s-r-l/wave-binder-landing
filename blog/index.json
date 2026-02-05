@@ -9,7 +9,7 @@
 
   {
     "slug": "002-attempting-to-scale-a-server-driven-architecture",
-    "title": "From Custom to Product: An Analysis of Failures in Attempting to Scale a Server-Driven Architecture",
+    "title": "An Analysis of Failures in Attempting to Scale a Server-Driven Architecture",
     "date": "2026-01-29",
     "author": "Technical Product Manager / Software Architect",
     "tags": ["Product Management", "Startup Lessons", "Server-Driven UI", "Low-Code", "Developer Experience"]
@@ -17,7 +17,7 @@
 
   {
     "slug": "003-architectural-pivot-from-legacy-monolith-to-multi-framework-headless-library-the-genesis-of–wavebinder",
-    "title": "Architectural Pivot: From Legacy Monolith to Multi-Framework 'Headless' Library. The Genesis of Wavebinder",
+    "title": "From Legacy Monolith to Multi-Framework 'Headless' Library",
     "date": "2026-02-04",
     "author": "Senior Software Engineer / Lead Architect",
     "tags": ["Software Architecture", "Headless UI", "State Management", "Multi-Framework", "Clean Architecture", "TypeScript"]

@@ -208,6 +208,7 @@
 }
 
 #cta button {
+    z-index: -1;
     position: relative;
     padding: 10px 20px;
     border-radius: 8px;
@@ -254,6 +255,19 @@
     transition: opacity 0.3s ease;
     z-index: -1;
 }
+
+#cta .submenu {
+    z-index: 1;
+}
+
+#cta .submenu div {
+    background: var(--bg-color);
+}
+
+#cta .submenu div:hover {
+    background: transparent;
+}
+
 
 /* Show background on hover */
 #cta button:hover::after,
