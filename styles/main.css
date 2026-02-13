@@ -1,14 +1,10 @@
-/* Header ----------------------------------------------------------------------------------------------- */
+/* THEME SELECTOR (ONLY HOMEPAGE) */
 #theme-selector-container {
-    position: fixed;
+    top: 10px;
+    right: 10px;
 }
 
-@media screen and (max-width: 650px) {
-    #theme-selector-container {
-        top: 88dvh;
-    }
-}
-
+/* Header ----------------------------------------------------------------------------------------------- */
 #header {
     display: flex;
     flex-direction: column;

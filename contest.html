@@ -21,6 +21,33 @@
         <div class="gradients-container"></div>
     </div>
 
+    <div id="theme-selector-container">
+        <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+            <input type="checkbox" id="themeToggle" class="themeToggleInput" />
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
+                <mask id="moon-mask">
+                    <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+                    <circle cx="11" cy="3" r="8" fill="black"></circle>
+                </mask>
+                <circle
+                        class="sunMoon"
+                        cx="10"
+                        cy="10"
+                        r="8"
+                        mask="url(#moon-mask)"
+                ></circle>
+                <g>
+                    <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+                    <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+                    <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+                    <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+                    <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+                    <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+                </g>
+            </svg>
+        </label>
+    </div>
+
     <nav>
         <div id="nav-container">
             <img id="logo" class="logo" src="assets/logo-nav.svg" alt="wavebinder-logo"/>
@@ -30,32 +57,6 @@
                 <li><a href="#join" id="join-nav" class="active">CONTEST</a></li>
                 <li><a href="/blog">BLOG</a></li>
             </ul>
-        </div>
-        <div id="theme-selector-container">
-            <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
-                <input type="checkbox" id="themeToggle" class="themeToggleInput" />
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" stroke="none">
-                    <mask id="moon-mask">
-                        <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-                        <circle cx="11" cy="3" r="8" fill="black"></circle>
-                    </mask>
-                    <circle
-                            class="sunMoon"
-                            cx="10"
-                            cy="10"
-                            r="8"
-                            mask="url(#moon-mask)"
-                    ></circle>
-                    <g>
-                        <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
-                        <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
-                        <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
-                        <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
-                        <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
-                        <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
-                    </g>
-                </svg>
-            </label>
         </div>
     </nav>
 
@@ -230,7 +231,7 @@
             </div>
 
             <div class="checkbox-container">
-                <label><input type="checkbox" id="privacy" name="privacy" required> I accept the <a href="/assets/INFORMATIVA PRIVACY - Wavebinder.pdf" target="_blank">Privacy Policy</a></label>
+                <label><input type="checkbox" id="privacy" name="privacy" required> I accept the <a class="privacy-policy-url" href="/assets/INFORMATIVA_PRIVACY_Wavebinder.pdf" target="_blank">Privacy Policy</a></label>
             </div>
 
             <div>
@@ -407,40 +408,16 @@
     </section>
 
     <footer>
-        <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved. | <a href="/assets/INFORMATIVA PRIVACY - Wavebinder.pdf" target="_blank">Privacy Policy</a> | <a href="/assets/INFORMATIVA COOKIE - Wavebinder.pdf" target="_blank">Cookie Policy</a></p>
+        <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved. | <a class="privacy-policy-url" href="" target="_blank">Privacy Policy</a> | <a class="cookie-policy-url" href="" target="_blank">Cookie Policy</a></p>
     </footer>
-
-    <!-- Cookie Banner (Informational only) -->
-    <div id="cookie-notice" class="cookie-banner">
-        <div class="cookie-content">
-            <p>
-                🍪 This site uses technical cookies necessary for functionality
-                and security.
-                <a href="/assets/INFORMATIVA COOKIE - Wavebinder.pdf" target="_blank">More information</a>
-            </p>
-            <button onclick="closeCookieNotice()" class="btn-cookie">I understand</button>
-        </div>
-    </div>
 
     <script>
         const currentDate = new Date();
         document.getElementById("year").textContent = currentDate.getFullYear();
     </script>
 
-    <script>
-        // Manage Cookie Banner
-        window.addEventListener('load', function() {
-            // Check if user has already seen the banner
-            if (!localStorage.getItem('cookie_notice_seen')) {
-                document.getElementById('cookie-notice').style.display = 'block';
-            }
-        });
-
-        function closeCookieNotice() {
-            document.getElementById('cookie-notice').style.display = 'none';
-            localStorage.setItem('cookie_notice_seen', 'true');
-        }
-    </script>
+    <script type="module" src="/js/cookies.js"></script>
+    <script type="module" src="/js/privacy.js"></script>
     <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
     <script type="module" src="/js/shared.js"></script>
     <script type="module" src="/js/background.js"></script>

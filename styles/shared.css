@@ -67,6 +67,7 @@ footer {
     height: 5rem;
     text-align: center;
     color: var(--text-color-2);
+    margin-bottom: 50px; /* To avoid overlap on fixed icons */
 }
 
 footer a {
@@ -106,14 +107,22 @@ h3 {
 }
 
 /* Theme Selector */
-#theme-selector {
-    position: absolute;
-    right: 0;
-    top: 0;
+#theme-selector-container {
+    position: fixed;
     background-color: red;
-    height: 100px;
-    width: 100px;
+    top: 2.2rem;
+    right: 2.2rem;
+    z-index: 1000;
 }
+
+@media screen and (max-width: 950px) {
+    #theme-selector-container {
+        top: auto !important;
+        bottom: 4rem !important;
+        right: 1rem !important;
+    }
+}
+
 
 .themeToggle {
     color: var(--gradient-1);
@@ -123,8 +132,7 @@ h3 {
 .st-sunMoonThemeToggleBtn {
     position: absolute;
     cursor: pointer;
-    top: 50px;
-    right: 25px;
+    right: 50%;
 }
 
 .st-sunMoonThemeToggleBtn .themeToggleInput {
@@ -360,23 +368,16 @@ nav ul li a.active {
     background-position: 100% 50%;
 }
 
-#theme-selector-container {
-    position: absolute;
-    height: 100%;
-    margin-top: -40px;
-    right: 0;
-    z-index: 1000;
+#logo {
+    cursor: pointer;
 }
 
 #logo-mobile {
     display: none;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 650px) {
-    #theme-selector-container {
-        top: 85dvh;
-    }
-
     #logo {
         display: none;
     }
@@ -422,12 +423,19 @@ nav ul li a.active {
 }
 
 .cookie-content {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+}
+
+.cookie-content div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
 }
 
 .cookie-content p {
@@ -453,8 +461,16 @@ nav ul li a.active {
     transition: background 0.3s;
 }
 
-.btn-cookie:hover {
+#accept-btn:hover {
     background: var(--cookie_theme_color_2);
+}
+
+#decline-btn {
+    background:#555;
+}
+
+#decline-btn:hover {
+    background: #d61111;
 }
 
 @media (max-width: 768px) {
@@ -492,6 +508,30 @@ nav ul li a.active {
     .btn-submit {
         padding: 0.875rem;
     }
+}
+
+#cookie-settings {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    background: var(--cookie_theme_color);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 8px;
+    width: 45px;
+    height: 45px;
+}
+
+#cookie-settings svg {
+    transition: fill 0.3s ease-in-out;
+}
+
+#cookie-settings:hover svg {
+    fill: white;
 }
 
 /* Contact - Contact Form ----------------------------------------------------------------- */

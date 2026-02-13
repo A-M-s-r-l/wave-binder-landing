@@ -147,6 +147,12 @@ document.addEventListener('click', () => {
         .forEach(w => w.classList.remove('open'));
 });
 
+// Logo redirects to main page
 document.addEventListener("DOMContentLoaded", () => {
-    document.quer
+    document.getElementById("logo").addEventListener("click", () => {
+        window.location.href = "/";
+    })
+    document.getElementById("logo-mobile").addEventListener("click", () => {
+        window.location.href = "/";
+    })
 })

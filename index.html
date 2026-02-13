@@ -435,7 +435,7 @@
             </div>
 
             <div class="checkbox-container">
-                <label><input type="checkbox" id="privacy" name="privacy" required> I accept the <a href="/assets/INFORMATIVA PRIVACY - Wavebinder.pdf" target="_blank">Privacy Policy</a></label>
+                <label><input type="checkbox" id="privacy" name="privacy" required> I accept the <a class="privacy-policy-url" href="" target="_blank">Privacy Policy</a></label>
             </div>
 
             <div>
@@ -493,98 +493,15 @@
     </section>
 
     <footer>
-        <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved. | <a href="/assets/INFORMATIVA PRIVACY - Wavebinder.pdf" target="_blank">Privacy Policy</a> | <a href="/assets/INFORMATIVA COOKIE - Wavebinder.pdf" target="_blank">Cookie Policy</a></p>
+        <p>© <span id="year"></span> wavebinderᵀᴹ. All rights reserved. | <a class="privacy-policy-url" href="" target="_blank">Privacy Policy</a> | <a class="cookie-policy-url" href="" target="_blank">Cookie Policy</a></p>
     </footer>
-
-    <!-- Cookie Banner with Analytics Consent -->
-    <div id="cookie-notice" class="cookie-banner">
-        <div class="cookie-content">
-            <p>
-                🍪 This site uses technical cookies necessary for functionality
-                and optional analytics cookies to improve your experience.
-                <a href="/assets/INFORMATIVA COOKIE - Wavebinder.pdf" target="_blank">More information</a>
-            </p>
-            <div>
-                <button id="accept-analytics" class="btn-cookie">Accept Analytics</button>
-                <button id="decline-analytics" class="btn-cookie" style="background:#555;">Decline</button>
-            </div>
-        </div>
-    </div>
 
     <script>
         const currentDate = new Date();
         document.getElementById("year").textContent = currentDate.getFullYear();
     </script>
-    <script>
-        /* Manage Cookie */
-        window.addEventListener('load', function() {
-            const consent = localStorage.getItem('analytics_consent');
-
-            // Show banner if no consent
-            if (!consent) {
-                document.getElementById('cookie-notice').style.display = 'block';
-            } else if (consent === 'accepted') {
-                loadGA(); // Already accepted → load GA fully
-            } else if (consent === 'declined') {
-                loadGAConsentModeOnly(); // Declined → partial anonymized tracking
-            }
-        });
-
-        // Load GA fully (after opt-in)
-        function loadGA() {
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = "https://www.googletagmanager.com/gtag/js?id=G-M7Q2XN1TRE";
-            document.head.appendChild(script);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = gtag;
-
-            // Consent Mode: user granted
-            gtag('consent', 'update', {
-                'analytics_storage': 'granted'
-            });
-
-            gtag('js', new Date());
-            gtag('config', 'G-M7Q2XN1TRE');
-        }
-
-        // Load GA in Consent Mode only (no cookies, anonymous)
-        function loadGAConsentModeOnly() {
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = "https://www.googletagmanager.com/gtag/js?id=G-M7Q2XN1TRE";
-            document.head.appendChild(script);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = gtag;
-
-            // Consent Mode: denied → anonymous tracking
-            gtag('consent', 'default', {
-                'analytics_storage': 'denied'
-            });
-
-            gtag('js', new Date());
-            gtag('config', 'G-M7Q2XN1TRE');
-        }
-
-        // Accept Analytics
-        document.getElementById('accept-analytics').addEventListener('click', function() {
-            localStorage.setItem('analytics_consent', 'accepted');
-            document.getElementById('cookie-notice').style.display = 'none';
-            loadGA();
-        });
-
-        // Decline Analytics
-        document.getElementById('decline-analytics').addEventListener('click', function() {
-            localStorage.setItem('analytics_consent', 'declined');
-            document.getElementById('cookie-notice').style.display = 'none';
-            loadGAConsentModeOnly();
-        });
-    </script>
-
+    <script type="module" src="/js/cookies.js"></script>
+    <script type="module" src="/js/privacy.js"></script>
     <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
     <script type="module" src="/js/shared.js"></script>
     <script type="module" src="/js/background.js"></script>
