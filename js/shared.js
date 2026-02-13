@@ -149,10 +149,17 @@ document.addEventListener('click', () => {
 
 // Logo redirects to main page
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("logo").addEventListener("click", () => {
-        window.location.href = "/";
-    })
-    document.getElementById("logo-mobile").addEventListener("click", () => {
-        window.location.href = "/";
-    })
+    const logo = document.getElementById("logo");
+    if(logo) {
+        logo.addEventListener("click", () => {
+            window.location.href = "/";
+        })
+    }
+
+    const logoMobile = document.getElementById("logo-mobile");
+    if(logoMobile) {
+        document.getElementById("logo-mobile").addEventListener("click", () => {
+            window.location.href = "/";
+        })
+    }
 })
