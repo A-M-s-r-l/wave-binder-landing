@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         q2: document.getElementById("q2"),
         q3: document.getElementById("q3"),
         rules: document.getElementById("rules"),
-        privacy: document.getElementById("privacy")
+        newsletter: document.getElementById("newsletter")
     };
 
     const validators = {
@@ -27,18 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
         q2: v => v.trim().length > 5,
         q3: v => v.trim().length > 5,
         rules: checked => checked,
-        privacy: checked => checked
+        //newsletter: checked => checked
     };
 
     // Live validation
     Object.entries(fields).forEach(([key, el]) => {
-        const evt = key === "privacy" || key === "rules" ? "change" : "input";
+        const evt = key === "rules" ? "change" : "input";
         el.addEventListener(evt, () => validateField(key));
     });
 
     function validateField(key) {
         const el = fields[key];
-        const value = key === "privacy" || key === "rules" ? el.checked : el.value.trim();
+        const value = key === "rules" ? el.checked : el.value.trim();
         const valid = validators[key](value);
 
         if (!valid) el.classList.add("invalid");
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             q2: fields.q2.value.trim(),
             q3: fields.q3.value.trim(),
             //rules: fields.rules.checked,
-            //privacy: fields.privacy.checked,
+            newsletter: fields.newsletter.checked,
             cf_turnstile_response: turnstileToken
         };
 

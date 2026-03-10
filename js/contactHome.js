@@ -11,13 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const fields = {
         name: document.getElementById("name"),
         email: document.getElementById("email"),
-        privacy: document.getElementById("privacy")
+        //privacy: document.getElementById("privacy")
     };
 
     const validators = {
         name: v => v.length >= 2,
         email: v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v),
-        privacy: checked => checked
+        //privacy: checked => checked
     };
 
     // Live validation

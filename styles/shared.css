@@ -655,6 +655,7 @@ textarea.invalid:focus {
 
 #submitBtn {
     z-index: 1;
+    margin-top: 15px;
 }
 
 #submitBtn span {
@@ -733,4 +734,14 @@ textarea.invalid:focus {
 
 .cf-turnstile {
     margin-top: 30px;
+}
+
+.privacy {
+    font-style: italic;
+    color: gray;
+}
+
+.privacy a {
+    text-decoration: none;
+    color: var(--gradient-1);
 }
