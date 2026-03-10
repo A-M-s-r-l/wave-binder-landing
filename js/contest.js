@@ -1,8 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const form = document.getElementById("contactForm");
     const statusBox = document.getElementById("form-messages");
     const submitBtn = document.getElementById("submitBtn");
+
+    if (!form || !statusBox || !submitBtn) {
+        return;
+    }
+
     const btnText = submitBtn.querySelector(".btn-text");
     const btnLoader = submitBtn.querySelector(".btn-loader");
     const btnCheck = submitBtn.querySelector(".btn-success-check");
@@ -19,40 +23,56 @@ document.addEventListener("DOMContentLoaded", () => {
         newsletter: document.getElementById("newsletter")
     };
 
+    const requiredFieldKeys = ["name", "email", "phone", "q1", "q2", "q3", "rules"];
+
     const validators = {
-        name: v => v.length >= 2,
-        email: v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v),
-        phone: v => /^\+?\d+$/.test(v.trim()), // phone must be all digits, optional "+" at start
-        q1: v => true,  // URL
-        q2: v => v.trim().length > 5,
-        q3: v => v.trim().length > 5,
-        rules: checked => checked,
-        //newsletter: checked => checked
+        name: value => value.length >= 2,
+        email: value => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value),
+        phone: value => /^[+]?[0-9()\-\s]{6,}$/.test(value.trim()),
+        q1: value => {
+            try {
+                const url = new URL(value);
+                return ["http:", "https:"].includes(url.protocol);
+            } catch {
+                return false;
+            }
+        },
+        q2: value => value.trim().length > 5,
+        q3: value => value.trim().length > 5,
+        rules: checked => checked === true
     };
 
-    // Live validation
     Object.entries(fields).forEach(([key, el]) => {
+        if (!el || !requiredFieldKeys.includes(key)) {
+            return;
+        }
+
         const evt = key === "rules" ? "change" : "input";
         el.addEventListener(evt, () => validateField(key));
     });
 
     function validateField(key) {
         const el = fields[key];
-        const value = key === "rules" ? el.checked : el.value.trim();
-        const valid = validators[key](value);
+        const validator = validators[key];
 
-        if (!valid) el.classList.add("invalid");
-        else el.classList.remove("invalid");
+        if (!el || !validator) {
+            return true;
+        }
+
+        const value = key === "rules" ? el.checked : el.value.trim();
+        const valid = validator(value);
+
+        el.classList.toggle("invalid", !valid);
 
         return valid;
     }
 
     function validateAllFields() {
-        return Object.keys(fields).every(key => validateField(key));
+        return requiredFieldKeys.every(key => validateField(key));
     }
 
-    function showStatus(msg, type) {
-        statusBox.textContent = msg;
+    function showStatus(message, type) {
+        statusBox.textContent = message;
         statusBox.className = `status ${type}`;
         statusBox.style.display = "block";
 
@@ -62,26 +82,46 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Button animations
     function startLoading() {
         submitBtn.disabled = true;
-        btnText.textContent = "Sending…";
-        btnLoader.style.display = "inline-block";
+
+        if (btnText) {
+            btnText.textContent = "Sending…";
+        }
+
+        if (btnLoader) {
+            btnLoader.style.display = "inline-block";
+        }
     }
 
     function stopLoading() {
-        btnLoader.style.display = "none";
-        btnText.textContent = "SUBMIT MY ENTRY";
+        if (btnLoader) {
+            btnLoader.style.display = "none";
+        }
+
+        if (btnText) {
+            btnText.textContent = "SUBMIT MY ENTRY";
+        }
+
         submitBtn.disabled = false;
     }
 
     function playSuccessAnimation() {
-        btnLoader.style.display = "none";
-        btnCheck.style.display = "inline-block";
+        if (btnLoader) {
+            btnLoader.style.display = "none";
+        }
+
+        if (btnCheck) {
+            btnCheck.style.display = "inline-block";
+        }
+
         submitBtn.classList.add("success");
 
         setTimeout(() => {
-            btnCheck.style.display = "none";
+            if (btnCheck) {
+                btnCheck.style.display = "none";
+            }
+
             submitBtn.classList.remove("success");
         }, 1500);
     }
@@ -95,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
         turnstileToken = token;
     };
 
-    // Submit handler (no page reload)
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         clearStatus();
@@ -119,45 +158,57 @@ document.addEventListener("DOMContentLoaded", () => {
             q1: fields.q1.value.trim(),
             q2: fields.q2.value.trim(),
             q3: fields.q3.value.trim(),
-            //rules: fields.rules.checked,
-            newsletter: fields.newsletter.checked,
+            newsletter: Boolean(fields.newsletter?.checked),
             cf_turnstile_response: turnstileToken
         };
 
         try {
             const res = await fetch("https://94winjz1x3.execute-api.eu-south-1.amazonaws.com/default/wavebinder_contest_form", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
 
-            const data = await res.json();
+            let data = null;
 
-            if (data.success) {
+            try {
+                data = await res.json();
+            } catch {
+                data = null;
+            }
+
+            if (!res.ok) {
+                showStatus(data?.message || "Submission failed. Please try again.", "error");
+                return;
+            }
+
+            if (data?.success) {
                 playSuccessAnimation();
                 showStatus("Your message has been sent!", "success");
                 form.reset();
-                turnstile.reset();
+
+                if (window.turnstile && typeof window.turnstile.reset === "function") {
+                    window.turnstile.reset();
+                }
+
                 turnstileToken = null;
             } else {
-                showStatus(data.message || "Submission failed.", "error");
+                showStatus(data?.message || "Submission failed.", "error");
             }
-
         } catch (err) {
-            console.error(err);
+            console.error("Contest form submission error:", err);
             showStatus("Network error — please try again.", "error");
+        } finally {
+            stopLoading();
         }
-
-        stopLoading();
     });
 
-    // FAQ
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    const accordionHeaders = document.querySelectorAll(".accordion-header");
 
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
+    accordionHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
             const accordionItem = header.parentElement;
-            accordionItem.classList.toggle('active');
+            accordionItem?.classList.toggle("active");
         });
     });
 });
