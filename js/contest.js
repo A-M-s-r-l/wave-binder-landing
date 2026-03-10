@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const el = fields[key];
         const validator = validators[key];
 
-        if (!el || !validator) {
+        if (!el || typeof validator !== "function") {
             return true;
         }
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function validateAllFields() {
-        return requiredFieldKeys.every(key => validateField(key));
+        return requiredFieldKeys.every((key) => validateField(key));
     }
 
     function showStatus(message, type) {
