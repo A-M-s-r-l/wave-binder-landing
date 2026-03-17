@@ -406,6 +406,15 @@ function setupSidebarToggle() {
     setBtnState(!collapsed);
   });
 
+  // Close sidebar when clicking outside on mobile
+  document.addEventListener("click", (ev) => {
+    if (!isMobile()) return;
+    if (!sidebar.classList.contains("open")) return;
+    if (sidebar.contains(ev.target) || btn.contains(ev.target)) return;
+    sidebar.classList.remove("open");
+    setBtnState(false);
+  });
+
   window.addEventListener("resize", () => {
     if (isMobile()) {
       layout.classList.remove("sidebar-collapsed");

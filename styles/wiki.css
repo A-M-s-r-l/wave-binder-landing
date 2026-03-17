@@ -1005,16 +1005,13 @@ th { background: rgba(65, 224, 220, 0.14); }
     order: 10;
   }
 
-  .theme-toggle-btn {
-    padding: 0 10px;
-    min-width: auto;
-    font-size: 0.8rem;
-  }
-
+  .theme-toggle-btn,
   .lang-btn {
-    min-width: 32px;
-    padding: 5px 7px;
+    min-width: 36px;
+    height: 32px;
+    padding: 0 9px;
     font-size: 0.8rem;
+    border-radius: 999px;
   }
 
   main { padding: 20px 12px 40px; }
