@@ -224,7 +224,8 @@
 
 /* Gradient border */
 #cta button::before,
-.submenu div::before {
+.submenu div::before,
+.submenu > a::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -241,7 +242,8 @@
 
 /* Gradient background on hover */
 #cta button::after,
-#cta .submenu div::after {
+#cta .submenu div::after,
+#cta .submenu > a::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -256,18 +258,21 @@
     z-index: 1;
 }
 
-#cta .submenu div {
+#cta .submenu div,
+#cta .submenu > a {
     background: var(--bg-color);
 }
 
-#cta .submenu div:hover {
+#cta .submenu div:hover,
+#cta .submenu > a:hover {
     background: transparent;
 }
 
 
 /* Show background on hover */
 #cta button:hover::after,
-#cta .submenu div:hover::after {
+#cta .submenu div:hover::after,
+#cta .submenu > a:hover::after {
     opacity: 1;
 }
 
@@ -283,7 +288,8 @@
 /* Gradient text */
 #cta > button span,
 #cta .submenu-wrapper button span,
-#cta .submenu div span {
+#cta .submenu div span,
+#cta .submenu > a span {
     font-weight: 600;
     position: relative;
     z-index: 1;
@@ -295,7 +301,8 @@
 /* White Text on Hover */
 #cta button:hover span,
 #cta .submenu-wrapper button:hover span,
-#cta .submenu div:hover span {
+#cta .submenu div:hover span,
+#cta .submenu > a:hover span {
     color: white;
     -webkit-text-fill-color: white;
 }
@@ -325,7 +332,8 @@
 }
 
 /* Submenu items styled like main CTA buttons */
-.submenu div {
+.submenu div,
+.submenu > a {
     position: relative;
     padding: 10px 20px;
     background: transparent;
@@ -339,15 +347,18 @@
     cursor: pointer;
     letter-spacing: 2px;
     color: var(--text-color);
+    text-decoration: none;
 }
 
 /* Border Radius */
-.submenu > div:first-child {
+.submenu > div:first-child,
+.submenu > a:first-child {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
 
-.submenu > div:last-child {
+.submenu > div:last-child,
+.submenu > a:last-child {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }

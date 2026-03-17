@@ -1,0 +1,187 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pagina ufficiale della documentazione: wavebinder-autodb-back | Wave Binder Docs. Setup, uso API, esempi e note di migrazione per Wave Binder.">
+  <title>wavebinder-autodb-back | Wave Binder Docs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/styles/background.css">
+  <link rel="stylesheet" href="/styles/wiki.css">
+</head>
+<body>
+<div id="gradient-bg"><div class="gradients-container"></div></div>
+<div class="layout">
+  <aside id="sidebar" class="sidebar"></aside>
+  <div class="content-wrap">
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">Menu</button>
+      <input id="searchInput" class="search" placeholder="Cerca in docs...">
+      <div id="searchResults" class="search-results"></div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <span class="badge">Backend</span>
+        <h1>wavebinder-autodb-back</h1>
+        <p>Backend Node.js che genera endpoint CRUD da configurazione JSON per esporre tabelle database via API.</p>
+      </section>
+
+      <h2>A cosa serve</h2>
+      <ul>
+        <li>Esporre tabelle DB senza scrivere route manuali una per una.</li>
+        <li>Gestire lettura/scrittura tramite file di configurazione.</li>
+        <li>Fornire un backend rapido da integrare in progetti WaveBinder.</li>
+      </ul>
+
+      <h2>Repository ufficiale</h2>
+      <p>
+        GitHub:
+        <a href="https://github.com/wavebinder/wavebinder-autodb-back" target="_blank" rel="noopener">
+          wavebinder/wavebinder-autodb-back
+        </a>
+      </p>
+
+      <h2>1) Installazione</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>npm install /path/to/wavebinder-autodb-back-0.0.2.tgz</code></pre>
+</details>
+
+      <h2>2) Configura il file JSON</h2>
+      <p>
+        Prima dell'avvio, prepara <code>config.json</code>: definisce porta, connessione DB, tabelle esposte,
+        policy di lettura/scrittura e sicurezza.
+      </p>
+      <p>
+        Il backend legge il file indicato da <code>CONFIG_PATH</code> (default: <code>./config.json</code>).
+      </p>
+
+      <h3>Esempio base</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>{
+  "useApiKey": "NO",
+  "apiKey": "nothing",
+  "port": 3001,
+  "defaultLimit": 100,
+  "databases": [
+    {
+      "name": "main",
+      "client": "sqlite3",
+      "connection": { "filename": "./restaurant.sqlite" },
+      "useNullAsDefault": true,
+      "schemas": [
+        {
+          "name": "main",
+          "tables": [
+            {
+              "name": "restaurants",
+              "primaryKey": "id",
+              "readOnly": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code></pre>
+</details>
+
+      <h3>Policy campi</h3>
+      <ul>
+        <li><code>readOnly</code>: se false permette scrittura/lettura altrimenti blocca la scrittura (default a false).</li>
+      </ul>
+
+      <h3>Esempio senza scrittura</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>{
+  "name": "restaurants",
+  "primaryKey": "id",
+  "readOnly": true
+}</code></pre>
+</details>
+
+      <h2>3) Avvio backend</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code># PowerShell
+$env:CONFIG_PATH = ".\\config.json"
+npx wavebinder-autodb-back</code></pre>
+</details>
+
+      <div class="callout">
+        In alternativa, se stai eseguendo il progetto backend direttamente:
+        <code>npm start</code>
+      </div>
+
+      <h2>4) Endpoint generati</h2>
+      <p>
+        Ogni voce in <code>schemas[].tables[]</code> genera CRUD sotto
+        <code>/api/{schema}/{table}</code>.
+      </p>
+      <div class="callout">
+        Gli endpoint esposti dipendono da <code>readOnly</code> nella tabella:
+        con <code>readOnly: true</code> sono permesse solo operazioni di lettura, quindi risultano visibili solo endpoint <code>GET</code>;
+        con <code>readOnly: false</code> sono disponibili anche gli endpoint di scrittura.
+      </div>
+      <ul>
+        <li><code>GET /api/main/restaurants</code> (filtri/sort/paginazione)</li>
+        <li><code>GET /api/main/restaurants/:id</code></li>
+        <li><code>POST /api/main/restaurants</code></li>
+        <li><code>PUT /api/main/restaurants/:id</code></li>
+        <li><code>DELETE /api/main/restaurants/:id</code></li>
+      </ul>
+
+      <h2>5) Uso nel progetto WaveBinder</h2>
+      <p>Configura il servizio esterno (esempio <code>extapi.json</code>):</p>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>{
+  "target": "http://localhost:3001/api",
+  "secure": false,
+  "authorization": null
+}</code></pre>
+</details>
+
+      <h3>Mapping serviceName (importante)</h3>
+      <p>
+        Il valore <code>serviceName</code> nei nodi deve combaciare con la chiave registrata nella mappa
+        servizi passata a <code>new WaveBinder(...)</code>.
+      </p>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>const extApis = new Map();
+extApis.set("api", EXT_API_CONFIG);
+
+const wb = new WaveBinder(
+  LICENSE,
+  PROTO_NODES,
+  extApis,
+  customFunctions
+);</code></pre>
+</details>
+
+      <ul>
+        <li>Con <code>extApis.set("api", ...)</code>, i nodi devono usare <code>serviceName: "api"</code>.</li>
+        <li>Con <code>target: "http://localhost:3001/api"</code> e <code>la.addr: "/main/restaurants"</code>, la chiamata finale diventa <code>http://localhost:3001/api/main/restaurants</code>.</li>
+      </ul>
+
+      <h2>Autenticazione</h2>
+      <ul>
+        <li>Se <code>useApiKey = "YES"</code>, il backend richiede header <code>x-api-key</code>.</li>
+        <li>Se <code>useApiKey = "NO"</code>, endpoint pubblici.</li>
+      </ul>
+
+    </main>
+  </div>
+</div>
+<script src="/js/background.js"></script>
+<script src="/js/wiki.js"></script>
+</body>
+</html>
+
+
+
+
+
+

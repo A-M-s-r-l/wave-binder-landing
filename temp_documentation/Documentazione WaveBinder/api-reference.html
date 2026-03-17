@@ -1,0 +1,83 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pagina ufficiale della documentazione: API Reference | Wave Binder Docs. Setup, uso API, esempi e note di migrazione per Wave Binder.">
+  <title>API Reference | Wave Binder Docs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar" class="sidebar"></aside>
+  <div class="content-wrap">
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">Menu</button>
+      <input id="searchInput" class="search" placeholder="Cerca in docs...">
+      <div id="searchResults" class="search-results"></div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <span class="badge">API</span>
+        <h1>WaveBinder API Reference</h1>
+        <p>Metodi pubblici disponibili e linee guida d'uso per runtime e nodi.</p>
+      </section>
+
+      <h2>Costruttore</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+      <pre><code>const wb = new WaveBinder(license, protoNodes, services, customFunctions);</code></pre>
+      </details>
+      <p>Il costruttore inizializza runtime e bootstrap licenza in background. I nodi vengono collegati con <code>tangleNodes()</code>.</p>
+
+      <h2>Metodi principali WaveBinder</h2>
+      <table>
+        <thead><tr><th>Metodo</th><th>Uso</th><th>Esempio</th></tr></thead>
+        <tbody>
+        <tr><td><code>tangleNodes()</code></td><td>Collega dipendenze tra nodi. Se licenza ancora pending, il tangle viene deferito in automatico.</td><td><code>wb.tangleNodes()</code></td></tr>
+        <tr><td><code>getNodes()</code></td><td>Ritorna nodi runtime.</td><td><code>wb.getNodes()</code></td></tr>
+        <tr><td><code>getNodeByName(name)</code></td><td>Ricerca nodo per nome.</td><td><code>wb.getNodeByName("region")</code></td></tr>
+        <tr><td><code>getNodeByNameAndType(name, type)</code></td><td>Ricerca nome+tipo.</td><td><code>wb.getNodeByNameAndType("region", "MULTI")</code></td></tr>
+        <tr><td><code>getNodeChoicesByName(name)</code></td><td>Scelte nodo MULTI.</td><td><code>wb.getNodeChoicesByName("region")</code></td></tr>
+        <tr><td><code>getDataPool()</code></td><td>Snapshot valori correnti.</td><td><code>wb.getDataPool()</code></td></tr>
+        <tr><td><code>getNodesInfo(logDepth?)</code></td><td>Debug stato nodi.</td><td><code>wb.getNodesInfo(10)</code></td></tr>
+        <tr><td><code>addCustomFunction(fn, name)</code></td><td>Registra custom function runtime.</td><td><code>wb.addCustomFunction((a, b) => a + b, "sum")</code></td></tr>
+      </tbody>
+      </table>
+
+      
+      <h2>Tipi nodo esportati</h2>
+      <p>Il package esporta anche le classi nodo runtime: <code>SingleNode</code>, <code>MultiNode</code>, <code>ListNode</code>, <code>ComplexNode</code>.</p>
+      <details class="example-block"><summary>Mostra esempio</summary>
+      <pre><code>import { WaveBinder, ComplexNode, ListNode, MultiNode, SingleNode } from "wave-binder";
+
+const child = wb.getNodeByName("robotBehavior");
+if (child?.node?.type === "COMPLEX") {
+  (child as ComplexNode).fields.forEach(field => {
+    // ...
+  });
+}</code></pre>
+      </details>
+      <h2>Metodi utili sui nodi runtime</h2>
+      <table>
+        <thead><tr><th>Tipo nodo</th><th>Metodo</th><th>Caso d'uso</th><th>Esempio</th></tr></thead>
+        <tbody>
+        <tr><td><code>SingleNode</code></td><td><code>next(value)</code></td><td>Imposta valore da input utente.</td><td><code>wb.getNodeByName("qty").next(10)</code></td></tr>
+        <tr><td><code>MultiNode</code></td><td><code>setSelection(index)</code></td><td>Seleziona opzione tra choices.</td><td><code>wb.getNodeByNameAndType("region", "MULTI").setSelection(1)</code></td></tr>
+        <tr><td><code>ListNode</code></td><td><code>next(size)</code></td><td>Ridimensiona lista dinamica.</td><td><code>wb.getNodeByNameAndType("items", "LIST").next(3)</code></td></tr>
+        <tr><td><code>ListNode</code></td><td><code>moveElement(from, to)</code></td><td>Riordina elementi.</td><td><code>list.moveElement(3, 0)</code></td></tr>
+        <tr><td><code>ListNode</code></td><td><code>swapElements(x, y)</code></td><td>Scambia due elementi.</td><td><code>list.swapElements(0, 1)</code></td></tr>
+        <tr><td><code>ComplexNode</code></td><td><code>next(obj)</code></td><td>Aggiorna oggetto composto.</td><td><code>customer.next({ firstName: "Mario" })</code></td></tr>
+      </tbody>
+      </table>
+
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+

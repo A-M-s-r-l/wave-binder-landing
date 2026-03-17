@@ -1,0 +1,129 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pagina ufficiale della documentazione: Getting Started | Wave Binder Docs. Setup, uso API, esempi e note di migrazione per Wave Binder.">
+  <title>Getting Started | Wave Binder Docs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar" class="sidebar"></aside>
+  <div class="content-wrap">
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">Menu</button>
+      <input id="searchInput" class="search" placeholder="Cerca in docs...">
+      <div id="searchResults" class="search-results"></div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <span class="badge">Quickstart</span>
+        <h1>Primi passi</h1>
+        <p>Configura Wave Binder, collega il backend e prova un primo flusso con nodi dipendenti.</p>
+      </section>
+
+      <div class="callout">
+        <strong>Cos'è WaveBinder?</strong><br>
+        <ul>
+          <li>Un dependency manager per gestire relazioni dati complesse.</li>
+          <li>Modella i dati come nodi di un grafo con dipendenze esplicite e usa RxJS per asincronia/stato.</li>
+          <li>Si integra con framework frontend moderni come React, Vue e Angular.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        Per dettaglio completo property nodi vai a <a href="guide-protonodes.html">ProtoNodes Guide</a>.
+        Per i metodi runtime vai a <a href="api-reference.html">API Reference</a>.
+      </div>
+
+      <h2>1) Installa libreria</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>npm install /path/to/wave-binder-0.0.2.tgz</code></pre>
+</details>
+
+      <h2>2) Configura servizio esterno (<code>extapi.json</code>)</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>{
+  "target": "http://localhost:3000/api",
+  "secure": false,
+  "authorization": null
+}</code></pre>
+</details>
+
+      <h2>3) Prepara <code>protonodes.json</code> (placeholder)</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>[]</code></pre>
+</details>
+      <p>In questa fase il file resta vuoto. La valorizzazione dei nodi avviene nel percorso <strong>Integrazione ecosistema WaveBinder</strong> (wizard CLI) o nella <strong>ProtoNodes Guide</strong>.</p>
+
+      <h2>4) Inizializza WaveBinder</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>import { WaveBinder, ComplexNode } from "wave-binder";
+import EXT_API_CONFIG from "./extapi.json";
+import LICENSE from "./license.json";
+import PROTO_NODES from "./protonodes.json";
+
+const extApis = new Map();
+extApis.set("api", EXT_API_CONFIG);
+
+export const wb = new WaveBinder(LICENSE, PROTO_NODES, extApis, []);
+wb.tangleNodes();</code></pre>
+</details>
+      <div class="callout">
+        <strong>Importante:</strong> l'istanza <code>wb</code> deve essere creata in un punto del codice accessibile (es. modulo condiviso/service singleton) e poi riusata.
+        Evita di inizializzarla dentro componenti o funzioni che possono essere rieseguite, altrimenti rischi istanze multiple e stato incoerente.
+      </div>
+
+      <ul>
+        <li><code>extApis.set("api", ...)</code> registra il servizio richiamato da <code>serviceName: "api"</code>.</li>
+        <li>La chiave usata in <code>extApis.set("api", ...)</code> deve combaciare esattamente con <code>serviceName</code> nei nodi (es. <code>"api"</code>).</li>
+        <li>Se cambi la chiave (es. <code>"backend"</code>), devi aggiornare anche i nodi con <code>serviceName: "backend"</code>.</li>
+        <li><code>wb.tangleNodes()</code> collega dipendenze e avvia flusso reattivo.</li>
+      </ul>
+
+      <h2>Integrazione ecosistema WaveBinder</h2>
+      <p>Oltre alla libreria <code>wave-binder</code>, puoi integrare componenti ufficiali per accelerare setup e manutenzione:</p>
+      <ul>
+        <li><strong>wavebinder-autodb-back</strong>: backend CRUD configurabile per esporre tabelle DB via API.</li>
+        <li><strong>wave-binder-cli</strong>: wizard CLI per valorizzare il <code>protonodes.json</code> creato allo step 3 (creazione/modifica nodi guidata).</li>
+      </ul>
+
+      <div class="callout">
+        In questa pagina trovi solo la panoramica. Setup, comandi e configurazione file sono nelle guide dedicate:
+      </div>
+
+      <div class="grid-2">
+        <article class="link-card">
+          <h3><a href="wavebinder-autodb-back.html">wavebinder-autodb-back</a></h3>
+          <p>Installazione, configurazione DB, esposizione tabelle e integrazione nel progetto.</p>
+        </article>
+        <article class="link-card">
+          <h3><a href="wave-binder-cli.html">wave-binder-cli</a></h3>
+          <p>Usa il wizard per popolare il <code>protonodes.json</code> creato prima, aggiungendo/modificando nodi in modo guidato.</p>
+        </article>
+      </div>
+
+      <h2>Una volta che hai definito i nodi in <code>protonodes</code></h2>
+      <div class="callout">
+        Gli esempi runtime (SINGLE, MULTI, CUSTOM_FUNCTION) sono disponibili nella <a href="guide-protonodes.html">ProtoNodes Guide</a>, nella sezione dedicata agli esempi pratici.
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

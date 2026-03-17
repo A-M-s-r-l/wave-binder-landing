@@ -1,0 +1,273 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pagina ufficiale della documentazione: ProtoNodes Guide | Wave Binder Docs. Setup, uso API, esempi e note di migrazione per Wave Binder.">
+  <title>ProtoNodes Guide | Wave Binder Docs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar" class="sidebar"></aside>
+  <div class="content-wrap">
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">Menu</button>
+      <input id="searchInput" class="search" placeholder="Cerca in docs...">
+      <div id="searchResults" class="search-results"></div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <span class="badge">Guide</span>
+        <h1>ProtoNodes Guide</h1>
+        <p>Riferimento completo per configurare nodi, dipendenze e caricamenti in modo corretto.</p>
+      </section>
+
+      <h2>Quando usare SINGLE / MULTI / LIST / COMPLEX</h2>
+      <table>
+        <thead><tr><th>Tipo</th><th>Quando usarlo</th><th>Esempio</th></tr></thead>
+        <tbody>
+        <tr><td><code>SINGLE</code></td><td>Valore singolo (stringa, numero, boolean, oggetto semplice).</td><td><code>qty</code>, <code>price</code>, <code>note</code></td></tr>
+        <tr><td><code>MULTI</code></td><td>Scelta tra opzioni (select/combobox).</td><td><code>region</code>, <code>province</code>, <code>city</code></td></tr>
+        <tr><td><code>LIST</code></td><td>Collezione dinamica di elementi ripetuti.</td><td>Righe ordine, elenco contatti</td></tr>
+        <tr><td><code>COMPLEX</code></td><td>Oggetto composto da più campi.</td><td><code>customer</code> con nome/cognome/indirizzo</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Struttura ProtoNode</h2>
+      <table>
+        <thead>
+        <tr><th>Property</th><th>Tipo</th><th>Significato</th><th>Quando usarla</th></tr>
+        </thead>
+        <tbody>
+        <tr><td><code>name</code></td><td>string</td><td>Nome logico del nodo.</td><td>Sempre.</td></tr>
+        <tr><td><code>path</code></td><td>string</td><td>Path nel payload serializzato.</td><td>Sempre.</td></tr>
+        <tr><td><code>type</code></td><td>string</td><td><span class="chip">SINGLE</span> <span class="chip">MULTI</span> <span class="chip">LIST</span> <span class="chip">COMPLEX</span></td><td>Sempre.</td></tr>
+        <tr><td><code>dep</code></td><td>NodeDependency[]</td><td>Dipendenze da altri nodi.</td><td>Sempre (anche vuoto).</td></tr>
+        <tr><td><code>la</code></td><td>LoadingAction</td><td>Come il nodo ottiene il valore.</td><td>Sempre.</td></tr>
+        <tr><td><code>defaultValue</code></td><td>any</td><td>Valore iniziale.</td><td>Quando serve un bootstrap valore.</td></tr>
+        <tr><td><code>proto</code></td><td>ProtoNode</td><td>Blueprint figlio.</td><td>Solo LIST.</td></tr>
+        <tr><td><code>protos</code></td><td>ProtoNode[]</td><td>Campi figli.</td><td>Solo COMPLEX.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>LoadingAction (<code>la</code>)</h2>
+      <table>
+        <thead>
+        <tr><th>Property</th><th>Significato</th><th>Dettaglio runtime</th></tr>
+        </thead>
+        <tbody>
+        <tr><td><code>type</code></td><td>Tipo caricamento</td><td><code>USER_SELECTION</code>, HTTP verbs, <code>CUSTOM_FUNCTION</code>.</td></tr>
+        <tr><td><code>addr</code></td><td>Endpoint relativo</td><td>Supporta placeholder come <code>{region}</code>.</td></tr>
+        <tr><td><code>serviceName</code></td><td>Nome servizio</td><td>Risolto dalla mappa <code>extApis</code>.</td></tr>
+        <tr><td><code>headers</code></td><td>Header nodo</td><td>Fanno merge con header del servizio.</td></tr>
+        <tr><td><code>bodyType</code></td><td>Formato body</td><td><code>JSON_OBJECT</code> o <code>MULTI_PART_FORM_DATA</code>.</td></tr>
+        <tr><td><code>functionName</code></td><td>Nome custom function</td><td>Nome registrato in <code>customFunctions</code>.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Tipi di la.type</h3>
+      <ul>
+        <li><code>USER_SELECTION</code>: valore impostato da UI/codice.</li>
+        <li><code>GET/POST/PUT/PATCH/DELETE</code>: valore da backend.</li>
+        <li><code>CUSTOM_FUNCTION</code>: valore calcolato localmente.</li>
+      </ul>
+
+      <h2>Dipendenze (<code>dep</code>)</h2>
+      <table>
+        <thead>
+        <tr><th>Property</th><th>Significato</th><th>Effetto</th></tr>
+        </thead>
+        <tbody>
+        <tr><td><code>nodeName</code></td><td>Nodo sorgente</td><td>Nodo da cui leggere il valore.</td></tr>
+        <tr><td><code>parameterName</code></td><td>Nome parametro</td><td>Mapping URL/query/body/custom function.</td></tr>
+        <tr><td><code>isOptional</code></td><td>Opzionalita</td><td>Se false, il nodo aspetta quel valore.</td></tr>
+        <tr><td><code>onUpdate</code></td><td>Invalidazione</td><td>Se true: emette null e poi ricalcola.</td></tr>
+        <tr><td><code>type</code></td><td>Canale trasporto</td><td><code>PATH_VARIABLE</code>, <code>REQUEST_PARAMETER</code>, <code>BODY</code>.</td></tr>
+        <tr><td><code>namingResolvingRule</code></td><td>Regola naming</td><td>Utile in scenari annidati/lista.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Effetto pratico di onUpdate</h3>
+      <ul>
+        <li><code>onUpdate: true</code>: al cambio dipendenza, il nodo va a <code>null</code> e poi ricalcola.</li>
+        <li><code>onUpdate: false</code>: ricalcolo diretto senza passaggio a <code>null</code>.</li>
+      </ul>
+
+      <h2>Esempi runtime dopo la definizione nodi</h2>
+      <h3>GET con due query parametri</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+      <pre><code>{
+  "name": "myTablesPaged",
+  "path": "/myTablesPaged",
+  "type": "SINGLE",
+  "dep": [
+    {
+      "nodeName": "page",
+      "parameterName": "page",
+      "isOptional": true,
+      "onUpdate": true,
+      "type": "REQUEST_PARAMETER"
+    },
+    {
+      "nodeName": "size",
+      "parameterName": "size",
+      "isOptional": true,
+      "onUpdate": true,
+      "type": "REQUEST_PARAMETER"
+    }
+  ],
+  "la": {
+    "type": "GET",
+    "addr": "/mytables",
+    "serviceName": "api"
+  }
+}</code></pre>
+      </details>
+
+      <h3>SINGLE + USER_SELECTION</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>(wb.getNodeByName("qty") as any).next(3);</code></pre>
+</details>
+
+      <h3>MULTI + GET</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>const region = wb.getNodeByNameAndType("region", "MULTI") as any;
+region.setSelection(0);</code></pre>
+</details>
+
+      <h3>CUSTOM_FUNCTION</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>const wb2 = new WaveBinder(LICENSE, PROTO_NODES, extApis, [
+  { name: "toLabel", implementation: (v) => (v ? `Label:${v}` : null) }
+]);
+wb2.tangleNodes();</code></pre>
+</details>
+
+      <h3>Custom Function: forma corretta</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+      <pre><code>// registrazione
+const customFunctions = [
+  { name: "toLabel", implementation: (province) => (province ? `Province:${province}` : null) }
+];
+
+// nodo
+{
+  "name": "provinceLabel",
+  "path": "/provinceLabel",
+  "type": "SINGLE",
+  "dep": [
+    {
+      "nodeName": "province",
+      "parameterName": "province",
+      "isOptional": true,
+      "onUpdate": true,
+      "type": "BODY"
+    }
+  ],
+  "la": {
+    "type": "CUSTOM_FUNCTION",
+    "functionName": "toLabel"
+  }
+}</code></pre>
+      </details>
+
+      <h3>Custom Function: cascata nodi con delay</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+        <pre>
+          <code>
+// Registrazione
+const wb = new WaveBinder(LICENSE, PROTO_NODES, extApis, [
+    {
+        name: "delayCascade",
+        // In chiamata custom function e possibile ricevere anche uno snapshot del nodo corrente
+        implementation: (value, nodeSnapshot) => {
+            if(!value) {
+             return null
+            }
+            setTimeout(() => {
+                wb.getNodeByName(nodeSnapshot.node.name).next(value);
+            }, 300);
+        }
+    }
+]);
+
+// Avvio
+wb.getNodeByName("node-0").next(value);
+
+// Nodi
+[
+  {
+    "name": "node-0",
+    "type": "SINGLE",
+    "path": "/node-0",
+    "la": {
+      "type": "USER_SELECTION"
+    },
+    "dep": []
+  },
+  {
+    "name": "node-1",
+    "type": "SINGLE",
+    "path": "/node-1",
+    "la": {
+      "type": "CUSTOM_FUNCTION",
+      "functionName": "delayCascade"
+    },
+    "dep": [
+      {
+        "nodeName": "node-0",
+        "isOptional": false,
+        "onUpdate": true
+      }
+    ]
+  },
+  {
+    "name": "node-2",
+    "type": "SINGLE",
+    "path": "/node-2",
+    "la": {
+      "type": "CUSTOM_FUNCTION",
+      "functionName": "delayCascade"
+    },
+    "dep": [
+      {
+        "nodeName": "node-1",
+        "isOptional": false,
+        "onUpdate": true
+      }
+    ]
+  }
+]
+          </code>
+        </pre>
+      </details>
+
+      <p>La libreria prova mapping per nome parametro; se non affidabile (es. minify), usa fallback per ordine dipendenze.</p>
+
+      <div class="callout warn">
+        Best practice: allinea i nomi argomento funzione con <code>parameterName</code> delle dipendenze. Non è obbligatorio al 100% (esiste fallback per ordine dipendenze), ma è fortemente consigliato per evitare ambiguità in build minificate/transpiled.
+      </div>
+
+      <h2>Vai avanti</h2>
+      <div class="grid-2">
+        <article class="link-card">
+          <h3><a href="getting-started.html">Torna al quickstart</a></h3>
+          <p>Rivedi il setup iniziale e la creazione dell'istanza condivisa <code>wb</code>.</p>
+        </article>
+        <article class="link-card">
+          <h3><a href="api-reference.html">Consulta API runtime</a></h3>
+          <p>Metodi <code>WaveBinder</code> e esempi pratici per l'utilizzo applicativo.</p>
+        </article>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+
+
+
+
+

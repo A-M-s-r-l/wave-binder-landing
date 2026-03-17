@@ -1,0 +1,140 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pagina ufficiale della documentazione: wave-binder-cli | Wave Binder Docs. Setup, uso API, esempi e note di migrazione per Wave Binder.">
+  <title>wave-binder-cli | Wave Binder Docs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/styles/background.css">
+  <link rel="stylesheet" href="/styles/wiki.css">
+</head>
+<body>
+<div id="gradient-bg"><div class="gradients-container"></div></div>
+<div class="layout">
+  <aside id="sidebar" class="sidebar"></aside>
+  <div class="content-wrap">
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">Menu</button>
+      <input id="searchInput" class="search" placeholder="Cerca in docs...">
+      <div id="searchResults" class="search-results"></div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <span class="badge">CLI</span>
+        <h1>wave-binder-cli</h1>
+        <p>Guida semplice per creare e modificare il file JSON dei nodi.</p>
+      </section>
+
+      <h2>Cosa fa</h2>
+      <p><code>wbcli</code> ti aiuta a costruire e aggiornare il file nodi senza edit manuale ripetitivo.</p>
+
+      <h2>Repository ufficiale</h2>
+      <p>
+        GitHub:
+        <a href="https://github.com/wavebinder/wavebinder-cli" target="_blank" rel="noopener">
+          wavebinder/wavebinder-cli
+        </a>
+      </p>
+
+      <h2>Come iniziare</h2>
+      <h3>Installazione da package locale (.tgz)</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>npm install /path/to/wave-binder-cli-0.0.2.tgz</code></pre>
+</details>
+
+      <h3>Avvio CLI</h3>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code>wbcli --help</code></pre>
+</details>
+
+      <h2>Comandi</h2>
+      <ul>
+        <li><code>wbcli wizard</code>: wizard guidato (consigliato per uso manuale).</li>
+        <li><code>wbcli add &lt;nodeName&gt; &lt;nodeType&gt; [-j file.json] [-f fatherNode]</code>: crea un nodo.</li>
+        <li><code>wbcli edit &lt;nodeName&gt; [-t nodeType] [-j file.json]</code>: modifica un nodo.</li>
+      </ul>
+
+      <h2>Flusso comando <code>wbcli wizard</code></h2>
+      <p>La sequenza seguente descrive cosa succede quando esegui <code>wbcli wizard</code>.</p>
+      <ol>
+        <li>Seleziona file target JSON (esistente o nuovo).</li>
+        <li>Scegli azione: <code>Create node (guided)</code> oppure <code>Edit node (guided)</code>.</li>
+        <li>Conferma i prompt e salva. Poi puoi continuare sullo stesso file oppure uscire.</li>
+      </ol>
+
+      <h2>Father vs Dipendenza (fondamentale)</h2>
+      <div class="callout">
+        <strong>Regola veloce:</strong><br>
+        <strong>Father</strong> serve quando un nodo è parte/contenuto di un altro nodo
+        (struttura gerarchica, es. oggetto o lista).<br>
+        Se vuoi cambiare <strong>quando/da cosa si aggiorna</strong> un nodo, imposta una <strong>dipendenza</strong> (<code>dep</code>).
+      </div>
+      <h2>Father</h2>
+      <ul>
+        <li>Sposta il nodo dentro un nodo contenitore.</li>
+        <li>Modifica la posizione nel JSON (<code>protos[]</code> o <code>proto</code>).</li>
+      </ul>
+      <h4>Chi può essere father?</h4>
+      <ul>
+        <li>Solo nodi <code>COMPLEX</code> o <code>LIST</code>.</li>
+        <li><code>SINGLE</code> e <code>MULTI</code> non possono essere father.</li>
+      </ul>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code># city viene creato come figlio di geoFilters
+wbcli add city MULTI -j protonodes.json -f geoFilters</code></pre>
+</details>
+
+<h2>Dipendenza (<code>dep</code>)</h2>
+      <ul>
+        <li>Non cambia la posizione del nodo nel JSON.</li>
+        <li>Definisce da quali nodi prende valori o trigger di aggiornamento.</li>
+      </ul>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code># esempio concettuale:
+# city dipende da region -> quando region cambia, city si aggiorna
+# (configurazione dal menu dipendenze in add/edit)</code></pre>
+</details>
+
+      <h2>Esempi essenziali</h2>
+      <details class="example-block"><summary>Mostra esempio</summary>
+<pre><code># 1) wizard guidato
+wbcli wizard
+
+# 2) aggiunge nodo top-level
+wbcli add region MULTI -j protonodes.json
+
+# 3) modifica tipo nodo
+wbcli edit region -t SINGLE -j protonodes.json</code></pre>
+</details>
+
+      <h2>Regole importanti</h2>
+      <ul>
+        <li>Tipi ammessi: <code>SINGLE</code>, <code>MULTI</code>, <code>COMPLEX</code>, <code>LIST</code>.</li>
+        <li>Tipo <code>SIMPLE</code> non valido: genera errore.</li>
+        <li>Se non passi <code>-j</code>, parte la selezione interattiva del file.</li>
+        <li>Il file JSON viene validato prima delle operazioni.</li>
+      </ul>
+
+      <div class="callout">
+        Se sei all'inizio: usa <code>wbcli wizard</code>.
+        Se sei esperto o in script: usa <code>add</code>/<code>edit</code> direttamente.
+      </div>
+    </main>
+  </div>
+</div>
+<script src="/js/background.js"></script>
+<script src="/js/wiki.js"></script>
+</body>
+</html>
+
+
+
+
+
+
