@@ -361,10 +361,12 @@ html.dark .toc-toggle-btn:hover {
 }
 
 .lang-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 36px;
-  text-align: center;
-  padding: 7px 9px;
+  height: 36px;
+  padding: 0 9px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-2);

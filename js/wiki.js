@@ -395,7 +395,8 @@ function setupSidebarToggle() {
   const initialOpen = isMobile() ? sidebar.classList.contains("open") : !layout.classList.contains("sidebar-collapsed");
   setBtnState(initialOpen);
 
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (ev) => {
+    ev.stopPropagation();
     if (isMobile()) {
       const open = sidebar.classList.toggle("open");
       setBtnState(open);
@@ -410,7 +411,7 @@ function setupSidebarToggle() {
   document.addEventListener("click", (ev) => {
     if (!isMobile()) return;
     if (!sidebar.classList.contains("open")) return;
-    if (sidebar.contains(ev.target) || btn.contains(ev.target)) return;
+    if (sidebar.contains(ev.target)) return;
     sidebar.classList.remove("open");
     setBtnState(false);
   });
