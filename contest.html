@@ -195,73 +195,11 @@
     <section id="join">
         <form id="contactForm" novalidate>
             <span id="form-title">Entry Form</span>
-            <div>
-                <label for="name">Name & Surname</label>
-                <input id="name" name="name" type="text" autocomplete="name" placeholder="your full name" required />
-            </div>
-
-            <div>
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" autocomplete="email" placeholder="your email" required />
-            </div>
-
-            <div>
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="your phone number" required />
-            </div>
-
-            <div>
-                <label for="q1">Project URL</label>
-                <input id="q1" name="q1" type="url" placeholder="link to your Empty Public GitHub repo where you intend to develop your project" required />
-            </div>
-
-            <div>
-                <label for="q2">Project Description</label>
-                <textarea id="q2" name="q2" type="text" placeholder="describe your project" required></textarea>
-            </div>
-
-            <div>
-                <label for="q3">How do you use Wavebinder in your project?</label>
-                <textarea id="q3" name="q3" type="text" placeholder="describe how you integrate Wavebinder in your project" required></textarea>
-            </div>
-
-
-            <div class="checkbox-container">
-                <label><input type="checkbox" id="rules" name="rules" required>I accept the <a href="/assets/20260122084134.pdf" target="_blank">Official Rules</a></label>
-            </div>
-
-            <div class="checkbox-container">
-                <label><input type="checkbox" id="newsletter" name="newsletter"><span>I agree to receive the newsletter and other promotional communications from Engeesoftware via e-mail as indicated in the <a class="privacy-policy-url" href="/assets/INFORMATIVA_PRIVACY_Wavebinder.pdf" target="_blank">Privacy Policy</a></span></label>
-            </div>
-
-            <div>
-                <div
-                    class="cf-turnstile"
-                    data-sitekey="0x4AAAAAACN6HeKODt5O-jbK"
-                    data-theme="light"
-                    data-size="normal"
-                    data-callback="turnstileCallback"
-                ></div>
-            </div>
-
             <div class="actions">
-                <span class="privacy">By clicking the "Submit my entry" button, you declare to have read our <a class="privacy-policy-url" href="/assets/INFORMATIVA_PRIVACY_Wavebinder.pdf" target="_blank">Privacy Policy</a></span>
-                <button id="submitBtn" class="gradient-btn" type="submit">
-                    <span class="btn-text">SUBMIT MY ENTRY</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
-                        <defs>
-                            <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="var(--gradient-3)" />
-                                <stop offset="100%" stop-color="var(--gradient-1)" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
-                    </svg>
-                    <div class="btn-loader"></div>
-                    <div class="btn-success-check"></div>
-                </button>
+                <div id="submitBtn" class="gradient-btn">
+                    <span class="btn-text">SUBMISSIONS CLOSED</span>
+                </div>
             </div>
-            <div id="form-messages" class="status"></div>
         </form>
     </section>
 
