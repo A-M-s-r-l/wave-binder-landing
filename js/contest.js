@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const accordionHeaders = document.querySelectorAll(".accordion-header");
+
+    accordionHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+            const accordionItem = header.parentElement;
+            accordionItem?.classList.toggle("active");
+        });
+    });
+
     const form = document.getElementById("contactForm");
     const statusBox = document.getElementById("form-messages");
     const submitBtn = document.getElementById("submitBtn");
@@ -134,13 +143,4 @@ document.addEventListener("DOMContentLoaded", () => {
     window.turnstileCallback = function (token) {
         turnstileToken = token;
     };
-
-    const accordionHeaders = document.querySelectorAll(".accordion-header");
-
-    accordionHeaders.forEach((header) => {
-        header.addEventListener("click", () => {
-            const accordionItem = header.parentElement;
-            accordionItem?.classList.toggle("active");
-        });
-    });
 });
