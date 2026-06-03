@@ -188,7 +188,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const effective = parsedBody && typeof parsedBody === "object" ? parsedBody : data;
             const explicitFailure = effective && typeof effective === "object" && effective.success === false;
-            if (!res.ok || explicitFailure) {
+            const hasLicensePayload = Boolean(
+                effective &&
+                typeof effective === "object" &&
+                effective.payload &&
+                typeof effective.payload === "object" &&
+                typeof effective.signature === "string" &&
+                effective.signature.length > 0
+            );
+
+            if ((!res.ok && !hasLicensePayload) || explicitFailure) {
                 showStatus(effective?.message || "Submission failed. Please try again.", "error");
                 return;
             }
