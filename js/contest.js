@@ -1,13 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const accordionHeaders = document.querySelectorAll(".accordion-header");
-
-    accordionHeaders.forEach((header) => {
-        header.addEventListener("click", () => {
-            const accordionItem = header.parentElement;
-            accordionItem?.classList.toggle("active");
-        });
-    });
-
     const form = document.getElementById("contactForm");
     const statusBox = document.getElementById("form-messages");
     const submitBtn = document.getElementById("submitBtn");
@@ -143,4 +134,81 @@ document.addEventListener("DOMContentLoaded", () => {
     window.turnstileCallback = function (token) {
         turnstileToken = token;
     };
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        clearStatus();
+
+        if (!validateAllFields()) {
+            showStatus("Please check the highlighted fields.", "error");
+            return;
+        }
+
+        if (!turnstileToken) {
+            showStatus("Please verify you are human.", "error");
+            return;
+        }
+
+        startLoading();
+
+        const payload = {
+            name: fields.name.value.trim(),
+            email: fields.email.value.trim(),
+            phone: fields.phone.value.trim(),
+            q1: fields.q1.value.trim(),
+            q2: fields.q2.value.trim(),
+            q3: fields.q3.value.trim(),
+            newsletter: Boolean(fields.newsletter?.checked),
+            cf_turnstile_response: turnstileToken
+        };
+
+        try {
+            const res = await fetch("https://94winjz1x3.execute-api.eu-south-1.amazonaws.com/default/wavebinder_contest_form", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            let data = null;
+
+            try {
+                data = await res.json();
+            } catch {
+                data = null;
+            }
+
+            if (!res.ok) {
+                showStatus(data?.message || "Submission failed. Please try again.", "error");
+                return;
+            }
+
+            if (data?.success) {
+                playSuccessAnimation();
+                showStatus("Your message has been sent!", "success");
+                form.reset();
+
+                if (window.turnstile && typeof window.turnstile.reset === "function") {
+                    window.turnstile.reset();
+                }
+
+                turnstileToken = null;
+            } else {
+                showStatus(data?.message || "Submission failed.", "error");
+            }
+        } catch (err) {
+            console.error("Contest form submission error:", err);
+            showStatus("Network error — please try again.", "error");
+        } finally {
+            stopLoading();
+        }
+    });
+
+    const accordionHeaders = document.querySelectorAll(".accordion-header");
+
+    accordionHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+            const accordionItem = header.parentElement;
+            accordionItem?.classList.toggle("active");
+        });
+    });
 });
