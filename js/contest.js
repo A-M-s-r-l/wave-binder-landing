@@ -170,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             let data = null;
+            let parsedBody = null;
 
             try {
                 data = await res.json();
@@ -177,24 +178,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 data = null;
             }
 
-            if (!res.ok) {
-                showStatus(data?.message || "Submission failed. Please try again.", "error");
+            if (data && typeof data.body === "string") {
+                try {
+                    parsedBody = JSON.parse(data.body);
+                } catch {
+                    parsedBody = null;
+                }
+            }
+
+            const effective = parsedBody && typeof parsedBody === "object" ? parsedBody : data;
+            const explicitFailure = effective && typeof effective === "object" && effective.success === false;
+            if (!res.ok || explicitFailure) {
+                showStatus(effective?.message || "Submission failed. Please try again.", "error");
                 return;
             }
 
-            if (data?.success) {
-                playSuccessAnimation();
-                showStatus("Your message has been sent!", "success");
-                form.reset();
+            playSuccessAnimation();
+            showStatus(effective?.message || "Your message has been sent!", "success");
+            form.reset();
 
-                if (window.turnstile && typeof window.turnstile.reset === "function") {
-                    window.turnstile.reset();
-                }
-
-                turnstileToken = null;
-            } else {
-                showStatus(data?.message || "Submission failed.", "error");
+            if (window.turnstile && typeof window.turnstile.reset === "function") {
+                window.turnstile.reset();
             }
+
+            turnstileToken = null;
         } catch (err) {
             console.error("Contest form submission error:", err);
             showStatus("Network error — please try again.", "error");
