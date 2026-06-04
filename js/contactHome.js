@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return null;
     }
 
-    function downloadLicenseFile(licenseData, fallbackEmail) {
+    function downloadLicenseFile(licenseData) {
         if (!licenseData || typeof licenseData !== "object") {
             return;
         }
@@ -156,22 +156,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const now = new Date();
-        const datePart = [
-            now.getFullYear(),
-            String(now.getMonth() + 1).padStart(2, "0"),
-            String(now.getDate()).padStart(2, "0")
-        ].join("");
-
+        const fallbackRandom = String(Math.floor(Math.random() * 9000) + 1000);
         const licenseIdPart = sanitizeFilePart(
             normalizedPayload.licenseId || licenseData.licenseId,
-            "license"
+            `license-${fallbackRandom}`
         );
-        const customerPart = sanitizeFilePart(
-            normalizedPayload.customer || fallbackEmail,
-            "customer"
-        );
-        const fileName = `wavebinder-license-${licenseIdPart}-${customerPart}-${datePart}.json`;
+        const fileName = `licence_${licenseIdPart}.js`;
         const fileContent = JSON.stringify(
             { ...licenseData, payload: normalizedPayload },
             null,
@@ -266,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 playSuccessAnimation();
                 showStatus(effective?.message || "Your message has been sent!", "success");
                 if (hasLicensePayload) {
-                    downloadLicenseFile(licenseData, fields.email.value.trim());
+                    downloadLicenseFile(licenseData);
                 }
                 form.reset();
 
