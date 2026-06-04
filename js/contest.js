@@ -152,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
             String(now.getDate()).padStart(2, "0")
         ].join("");
         const idPart = sanitizeFilePart(licenseData.payload?.licenseId || licenseData.licenseId, "license");
-        const customerPart = sanitizeFilePart(licenseData.payload?.customer, "customer");
         const fileName = `wavebinder-license-${idPart}.json`;
         const fileContent = JSON.stringify(licenseData, null, 2);
         const blob = new Blob([fileContent], { type: "application/json" });
