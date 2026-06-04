@@ -145,14 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const now = new Date();
-        const datePart = [
-            now.getFullYear(),
-            String(now.getMonth() + 1).padStart(2, "0"),
-            String(now.getDate()).padStart(2, "0")
-        ].join("");
-        const idPart = sanitizeFilePart(licenseData.payload?.licenseId || licenseData.licenseId, "license");
-        const fileName = `wavebinder-license-${idPart}.json`;
+        const fallbackRandom = String(Math.floor(Math.random() * 9000) + 1000);
+        const idPart = sanitizeFilePart(
+            licenseData.payload?.licenseId || licenseData.licenseId,
+            `license-${fallbackRandom}`
+        );
+        const fileName = `licence_${idPart}.js`;
         const fileContent = JSON.stringify(licenseData, null, 2);
         const blob = new Blob([fileContent], { type: "application/json" });
         const objectUrl = URL.createObjectURL(blob);
