@@ -112,6 +112,86 @@ document.addEventListener("DOMContentLoaded", () => {
         statusBox.textContent = "";
     }
 
+    function sanitizeFilePart(value, fallback) {
+        if (typeof value !== "string") {
+            return fallback;
+        }
+
+        const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        return normalized || fallback;
+    }
+
+    function normalizeLicensePayload(licenseData) {
+        if (!licenseData || typeof licenseData !== "object") {
+            return null;
+        }
+
+        if (licenseData.payload && typeof licenseData.payload === "object") {
+            return licenseData.payload;
+        }
+
+        if (typeof licenseData.payloadRaw === "string") {
+            try {
+                const parsed = JSON.parse(licenseData.payloadRaw);
+                if (parsed && typeof parsed === "object") {
+                    return parsed;
+                }
+            } catch {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    function downloadLicenseFile(licenseData, fallbackEmail) {
+        if (!licenseData || typeof licenseData !== "object") {
+            return;
+        }
+
+        const normalizedPayload = normalizeLicensePayload(licenseData);
+        const hasSignature = typeof licenseData.signature === "string" && licenseData.signature.length > 0;
+
+        if (!normalizedPayload || !hasSignature) {
+            return;
+        }
+
+        const now = new Date();
+        const datePart = [
+            now.getFullYear(),
+            String(now.getMonth() + 1).padStart(2, "0"),
+            String(now.getDate()).padStart(2, "0")
+        ].join("");
+
+        const licenseIdPart = sanitizeFilePart(
+            normalizedPayload.licenseId || licenseData.licenseId,
+            "license"
+        );
+        const customerPart = sanitizeFilePart(
+            normalizedPayload.customer || fallbackEmail,
+            "customer"
+        );
+        const fileName = `wavebinder-license-${licenseIdPart}-${customerPart}-${datePart}.json`;
+        const fileContent = JSON.stringify(
+            { ...licenseData, payload: normalizedPayload },
+            null,
+            2
+        );
+        const blob = new Blob([fileContent], { type: "application/json" });
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = objectUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+
+        window.setTimeout(() => {
+            link.remove();
+            URL.revokeObjectURL(objectUrl);
+        }, 1000);
+    }
+
     window.turnstileCallback = function (token) {
         turnstileToken = token;
     };
@@ -146,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             let data = null;
+            let parsedBody = null;
 
             try {
                 data = await res.json();
@@ -153,14 +234,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 data = null;
             }
 
-            if (!res.ok) {
-                showStatus(data?.message || "Submission failed. Please try again.", "error");
+            if (data && typeof data.body === "string") {
+                try {
+                    parsedBody = JSON.parse(data.body);
+                } catch {
+                    parsedBody = null;
+                }
+            }
+
+            const effective = parsedBody && typeof parsedBody === "object" ? parsedBody : data;
+            const licenseData = (
+                effective &&
+                typeof effective === "object" &&
+                effective.license &&
+                typeof effective.license === "object"
+            ) ? effective.license : effective;
+            const normalizedPayload = normalizeLicensePayload(licenseData);
+            const hasLicensePayload = Boolean(
+                normalizedPayload &&
+                typeof licenseData?.signature === "string" &&
+                licenseData.signature.length > 0
+            );
+            const explicitFailure = effective && typeof effective === "object" && effective.success === false;
+
+            if ((!res.ok && !hasLicensePayload) || explicitFailure) {
+                showStatus(effective?.message || "Submission failed. Please try again.", "error");
                 return;
             }
 
-            if (data?.success) {
+            if (effective?.success || hasLicensePayload) {
                 playSuccessAnimation();
-                showStatus("Your message has been sent!", "success");
+                showStatus(effective?.message || "Your message has been sent!", "success");
+                if (hasLicensePayload) {
+                    downloadLicenseFile(licenseData, fields.email.value.trim());
+                }
                 form.reset();
 
                 if (window.turnstile && typeof window.turnstile.reset === "function") {
