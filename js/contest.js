@@ -131,6 +131,41 @@ document.addEventListener("DOMContentLoaded", () => {
         statusBox.textContent = "";
     }
 
+    function sanitizeFilePart(value, fallback) {
+        if (typeof value !== "string") {
+            return fallback;
+        }
+
+        const normalized = value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        return normalized || fallback;
+    }
+
+    function downloadLicenseFile(licenseData) {
+        if (!licenseData || typeof licenseData !== "object") {
+            return;
+        }
+
+        const now = new Date();
+        const datePart = [
+            now.getFullYear(),
+            String(now.getMonth() + 1).padStart(2, "0"),
+            String(now.getDate()).padStart(2, "0")
+        ].join("");
+        const namePart = sanitizeFilePart(licenseData.payload?.name, "contest");
+        const fileName = `wavebinder-license-${namePart}-${datePart}.json`;
+        const fileContent = JSON.stringify(licenseData, null, 2);
+        const blob = new Blob([fileContent], { type: "application/json" });
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = objectUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(objectUrl);
+    }
+
     window.turnstileCallback = function (token) {
         turnstileToken = token;
     };
@@ -204,6 +239,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             playSuccessAnimation();
             showStatus(effective?.message || "Your message has been sent!", "success");
+            if (hasLicensePayload) {
+                downloadLicenseFile(effective);
+            }
             form.reset();
 
             if (window.turnstile && typeof window.turnstile.reset === "function") {
