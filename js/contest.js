@@ -151,8 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
             String(now.getMonth() + 1).padStart(2, "0"),
             String(now.getDate()).padStart(2, "0")
         ].join("");
-        const namePart = sanitizeFilePart(licenseData.payload?.name, "contest");
-        const fileName = `wavebinder-license-${namePart}-${datePart}.json`;
+        const idPart = sanitizeFilePart(licenseData.payload?.licenseId || licenseData.licenseId, "license");
+        const customerPart = sanitizeFilePart(licenseData.payload?.customer, "customer");
+        const fileName = `wavebinder-license-${idPart}-${customerPart}-${datePart}.json`;
         const fileContent = JSON.stringify(licenseData, null, 2);
         const blob = new Blob([fileContent], { type: "application/json" });
         const objectUrl = URL.createObjectURL(blob);
@@ -222,14 +223,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const effective = parsedBody && typeof parsedBody === "object" ? parsedBody : data;
-            const explicitFailure = effective && typeof effective === "object" && effective.success === false;
-            const hasLicensePayload = Boolean(
+            const licenseData = (
                 effective &&
                 typeof effective === "object" &&
-                effective.payload &&
-                typeof effective.payload === "object" &&
-                typeof effective.signature === "string" &&
-                effective.signature.length > 0
+                effective.license &&
+                typeof effective.license === "object"
+            ) ? effective.license : effective;
+            const explicitFailure = effective && typeof effective === "object" && effective.success === false;
+            const hasLicensePayload = Boolean(
+                licenseData &&
+                typeof licenseData === "object" &&
+                licenseData.payload &&
+                typeof licenseData.payload === "object" &&
+                typeof licenseData.signature === "string" &&
+                licenseData.signature.length > 0
             );
 
             if ((!res.ok && !hasLicensePayload) || explicitFailure) {
@@ -240,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
             playSuccessAnimation();
             showStatus(effective?.message || "Your message has been sent!", "success");
             if (hasLicensePayload) {
-                downloadLicenseFile(effective);
+                downloadLicenseFile(licenseData);
             }
             form.reset();
 
