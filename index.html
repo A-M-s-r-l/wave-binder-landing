@@ -435,18 +435,21 @@
                 <input id="email" name="email" type="email" autocomplete="email" placeholder="your email" required />
             </div>
 
-            <div>
-                <div
-                        class="cf-turnstile"
-                        data-sitekey="0x4AAAAAACN6HeKODt5O-jbK"
-                        data-theme="light"
-                        data-size="normal"
-                        data-callback="turnstileCallback"
-                ></div>
+            <div class="checkbox-container">
+                <input id="privacyConsent" name="privacyConsent" type="checkbox" required />
+                <label for="privacyConsent">I declare that I have read the <a class="privacy-policy-url" href="/assets/Informativa_Privacy_Wavebinder.pdf" target="_blank">Privacy Policy</a></label>
             </div>
 
             <div class="actions">
-                <span class="privacy">By clicking the "Submit" button, you declare to have read our <a class="privacy-policy-url" href="/assets/INFORMATIVA_PRIVACY_Wavebinder.pdf" target="_blank">Privacy Policy</a></span>
+
+                <div
+                    class="cf-turnstile"
+                    data-sitekey="0x4AAAAAACN6HeKODt5O-jbK"
+                    data-theme="light"
+                    data-size="normal"
+                    data-callback="turnstileCallback"
+                ></div>
+
                 <button id="submitBtn" class="gradient-btn" type="submit">
                     <span class="btn-text">SUBMIT</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">

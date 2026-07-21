@@ -10,7 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnText = submitBtn.querySelector(".btn-text");
     const btnLoader = submitBtn.querySelector(".btn-loader");
     const btnCheck = submitBtn.querySelector(".btn-success-check");
+    const privacyConsent = document.getElementById("privacyConsent");
     let turnstileToken = null;
+
+    function updateSubmitState() {
+        submitBtn.disabled = !(privacyConsent && privacyConsent.checked);
+    }
+
+    if (privacyConsent) {
+        privacyConsent.addEventListener("change", updateSubmitState);
+        updateSubmitState();
+    }
 
     const fields = {
         name: document.getElementById("name"),
@@ -84,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btnText.textContent = "SUBMIT MY ENTRY";
         }
 
-        submitBtn.disabled = false;
+        updateSubmitState();
     }
 
     function playSuccessAnimation() {
@@ -192,6 +202,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!validateAllFields()) {
             showStatus("Please check the highlighted fields.", "error");
+            return;
+        }
+
+        if (!privacyConsent || !privacyConsent.checked) {
+            showStatus("Please confirm you have read the Privacy Policy.", "error");
             return;
         }
 

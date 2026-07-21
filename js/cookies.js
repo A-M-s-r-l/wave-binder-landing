@@ -1,5 +1,5 @@
 (function() {
-    const COOKIE_POLICY_URL = "/assets/INFORMATIVA_COOKIE_Wavebinder.pdf"
+    const COOKIE_POLICY_URL = "/assets/Cookie_Policy_Wavebinder.pdf"
     const GA_MEASUREMENT_ID = 'G-M7Q2XN1TRE';
 
     // Append banner + settings to body
